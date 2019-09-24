@@ -1,22 +1,195 @@
-.App {
+*,
+body,
+html {
+  background: #4a535c;
+  padding: 0;
+  margin: 0;
+  font-family: "Nunito", san-serif;
+}
+
+.fa-shopping-cart {
+  color: #fff;
+}
+
+/* navbar */
+.navbar {
+  height: 4rem;
+}
+
+/* components */
+.image {
+  background: none;
+}
+.image > img {
+  width: auto;
+  height: 22.5rem;
+}
+
+.container {
+  z-index: 0;
+  left: 0;
+}
+
+.item-container {
+  background: #fff;
+  width: 25rem;
+  height: 32.5rem;
+  padding: 0 1rem 3rem 1rem;
+  margin-top: 6rem;
+  margin-left: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 0.5em 1em #343a40;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+.item-name {
+  display: block;
+  padding-top: 0.5em;
+  text-align: center;
+  color: #4c4c4c;
+  background: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+/* add to cart bottom menu */
+.addToCart {
+  background: none;
+  text-align: center;
+}
+.addToCartText {
+  background: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* shopping cart */
+.shoppingCartContainer {
+  right: 0;
+  top: 4rem;
+  width: 40rem;
+  height: 100%;
+  position: fixed;
+  background: #343a40;
+  box-shadow: 0 0 0.5em #343a40;
+  color: #fff;
+  padding: 2.5em 5em 5em 5em;
+  text-align: center;
+  overflow: auto;
+  z-index: 1;
+}
+.cartTitle {
+  background: none;
+  font-weight: bold;
+  padding-bottom: 2rem;
+}
+.verifyitems {
+  background: none;
+}
+/* cart items */
+.cart-item-container {
+  background: #fff;
+  margin-bottom: 2em;
+  overflow: auto;
+  box-shadow: 0 0.5em 1em #343a40;
+}
+.cart-name {
+  color: #343a40;
+  font-weight: bold;
+  background: none;
+}
+.cart-price {
+  color: #343a40;
+  float: right;
+  background: none;
+}
+.cart-image {
+  width: 2rem;
+  float: left;
+}
+.cart-image > img {
+  background: none;
+  width: auto;
+  height: 7.5rem;
+  display: block;
+}
+.nextTo {
+  background: #fff;
+  text-align: left;
+  padding: 1em;
+  margin-left: 6.3em;
+  height: 3em;
+}
+.deleteButton {
+  position: absolute;
+  right: 0;
+  margin-right: 3em;
+  margin-top: -0.5em;
+}
+.subtotal {
+  color: #343a40;
+  background: none;
+  display: block;
+  width: 100%;
+  text-align: right;
+}
+.quantity {
+  color: #343a40;
+  background: none;
+}
+.price {
+  color: #343a40;
+  background: none;
+  display: block;
+  padding-bottom: 0.5em;
+}
+.totalcost {
+  color: #fff;
+  background: none;
 }
 
-.App-link {
-  color: #09d3ac;
+/* SCROLL BAR */
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+/* track */
+::-webkit-scrollbar-track {
+  background: #343a40;
+  box-shadow: inset 0 0 5px #000;
+}
+/* handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 15px;
+  box-shadow: inset 0 0 5px #000;
+  background: #4a535c;
+}
+/* handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #414952;
+}
+
+@media only screen and (max-width: 1200px) {
+  .item-container {
+    margin-top: 6rem;
+    margin-left: -3.5rem;
+  }
+}
+@media only screen and (max-width: 1063px) {
+  .shoppingCartContainer {
+    transform: translateX(100%);
+    width: 100%;
+    padding: 2.5em 4em 5em 2em;
+    transition: 1s all ease-in;
+  }
+  .item-container {
+    position: relative;
+    margin-left: -12.5rem;
+    left: 50%;
+  }
+  .display {
+    transform: translateX(0);
+    transition: 1s all ease-out;
+  }
+  .deleteButton {
+    margin-right: 1.5em;
+  }
 }
