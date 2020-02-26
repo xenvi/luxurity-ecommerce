@@ -1,12 +1,50 @@
+@import url("https://fonts.googleapis.com/css?family=Merriweather&display=swap");
+
 *,
 body,
 html {
-  background: #4a535c;
+  box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: "Nunito", san-serif;
+  font-family: "Merriweather", san-serif;
 }
 
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu {
+  list-style: none;
+  margin: auto 0;
+}
+.menu > li {
+  padding-right: 1.5em;
+  float: left;
+  color: #fff;
+}
+.menu > li > i {
+  font-size: 1.2em;
+  margin-right: 0.25em;
+}
+
+.container {
+  padding: 5vh 5em;
+}
+
+/* home */
+.about_section > p {
+  margin: 0 3em;
+}
+
+/* footer */
+.socialicons > i {
+  margin-right: 1em;
+  font-size: 1.5em;
+}
+
+/* SHOPPING CART */
 .fa-shopping-cart {
   color: #fff;
 }
@@ -153,18 +191,17 @@ html {
 }
 /* track */
 ::-webkit-scrollbar-track {
-  background: #343a40;
+  background: #292d30;
   box-shadow: inset 0 0 5px #000;
 }
 /* handle */
 ::-webkit-scrollbar-thumb {
-  border-radius: 15px;
   box-shadow: inset 0 0 5px #000;
-  background: #4a535c;
+  background: #69614c;
 }
 /* handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #414952;
+  background: #5c5440;
 }
 
 @media only screen and (max-width: 1200px) {
