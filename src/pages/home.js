@@ -59,7 +59,7 @@ class home extends Component {
           <p style={{ maxWidth: "35em" }}>
             We are re-introducing the beauty of regality in fashion. Using only
             the finest materials, our dresses will bring you comfort and
-            confidence anywhere, anytime.
+            confidence for any occassion.
           </p>
         </About>
         <Featured className="flex">

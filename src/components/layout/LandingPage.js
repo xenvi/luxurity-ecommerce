@@ -15,14 +15,17 @@ const Landing = styled.section`
   background-repeat: no-repeat;
   
 `;
-const LandingBox = styled.section`
-  width: 600px;
+const LandingBox = styled.div`
+  max-width: 600px;
+  width: 100%;
+  padding: 1em;
   height: 300px;
   border-top: 2px solid #fff;
   border-bottom: 2px solid #fff;
   position: absolute;
 `;
 const LandingText = styled.p`
+  text-align: center;
   font-size: 2em;
   color: #fff;
   text-shadow: 0 0 0.4em #000;
@@ -56,7 +59,7 @@ export class LandingPage extends Component {
         <LandingText>
           Intricately woven dresses made perfect for you.
         </LandingText>
-        <LandingButton to="/categories">SHOP NOW</LandingButton>
+        <LandingButton to="/shop">SHOP NOW</LandingButton>
       </Landing>
     );
   }
