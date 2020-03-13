@@ -6,15 +6,16 @@ import { Link } from "react-router-dom";
 const Nav = styled.nav`
   position: fixed;
   width: 100%;
-  height: 75px;
+  height: 100px;
   background: none;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   font-size: 0.9em;
-  margin-top: 25px;
   text-shadow: 0 0 1em #000;
   z-index: 10;
+
+  transition: 0.3s all ease-in-out;
 `;
 const Brand = styled.h1`
   margin: auto 0;
@@ -67,6 +68,14 @@ class Navbar extends Component {
   componentDidMount() {
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions);
+    window.onscroll = function() {
+      var nav = document.querySelector("nav");
+      if (window.pageYOffset > 100) {
+        nav.classList.add("stickynav");
+      } else {
+        nav.classList.remove("stickynav");
+      }
+    };
   }
 
   componentWillUnmount() {
@@ -101,7 +110,7 @@ class Navbar extends Component {
               <i class="fas fa-user"></i> SIGN IN
             </li>
             <li>
-              <i class="fas fa-shopping-cart"></i> CART
+              <i class="fas fa-shopping-cart"></i>
             </li>
             <li>
               <i class="fas fa-search"></i>

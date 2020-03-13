@@ -37,13 +37,25 @@ const Label = styled.label`
   font-size: 0.9em;
   margin-left: 0.5em;
 `;
+const Form = styled.form`
+  transition: height 0.5s ease-in-out;
+`;
 
 const Listings = styled.div`
   float: left;
   padding: 2em;
 `;
 
+/*function expand() {
+  const currentElem = this;
+  const closestForm = currentElem.closest("form");
+  closestForm.classList.toggle("reveal");
+}*/
+
 class shop extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
   render() {
     return (
       <div>
@@ -52,12 +64,12 @@ class shop extends Component {
           <SideMenu>
             <Subtitle>
               Style{" "}
-              <Expand>
+              <Expand class="expand">
                 <i class="fas fa-plus"></i>
               </Expand>
             </Subtitle>
 
-            <form>
+            <Form>
               <Input
                 type="radio"
                 id="casual"
@@ -87,14 +99,14 @@ class shop extends Component {
               <br />
               <Input type="radio" id="cute" name="style" value="cute"></Input>
               <Label for="cute">Cute</Label>
-            </form>
+            </Form>
             <Subtitle>
               Color{" "}
               <Expand>
                 <i class="fas fa-plus"></i>
               </Expand>
             </Subtitle>
-            <form>
+            <Form>
               <Input type="radio" id="white" name="color" value="white"></Input>
               <Label for="white">White</Label>
               <br />
@@ -142,14 +154,14 @@ class shop extends Component {
               <br />
               <Input type="radio" id="beige" name="color" value="beige"></Input>
               <Label for="beige">Beige</Label>
-            </form>
+            </Form>
             <Subtitle>
               Size{" "}
               <Expand>
                 <i class="fas fa-plus"></i>
               </Expand>
             </Subtitle>
-            <form>
+            <Form>
               <Input type="checkbox" id="xs" name="size" value="xs"></Input>
               <Label for="xs">XS</Label>
               <br />
@@ -168,14 +180,14 @@ class shop extends Component {
               <Input type="checkbox" id="xxl" name="size" value="xxl"></Input>
               <Label for="xxl">XXL</Label>
               <br />
-            </form>
+            </Form>
             <Subtitle>
               Neckline{" "}
               <Expand>
                 <i class="fas fa-plus"></i>
               </Expand>
             </Subtitle>
-            <form>
+            <Form>
               <Input
                 type="radio"
                 id="round"
@@ -203,7 +215,23 @@ class shop extends Component {
               ></Input>
               <Label for="vneck">V Neck</Label>
               <br />
-            </form>
+              <Input
+                type="radio"
+                id="sweetheart"
+                name="neckline"
+                value="sweetheart"
+              ></Input>
+              <Label for="sweetheart">Sweetheart</Label>
+              <br />
+              <Input
+                type="radio"
+                id="offshoulder"
+                name="neckline"
+                value="offshoulder"
+              ></Input>
+              <Label for="offshoulder">Off-shoulder</Label>
+              <br />
+            </Form>
           </SideMenu>
           <Listings>content</Listings>
         </Container>

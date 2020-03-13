@@ -6,6 +6,7 @@ import "./App.css";
 import home from "./pages/home";
 import shop from "./pages/shop";
 import about from "./pages/about";
+import theteam from "./pages/theteam";
 
 // Redux
 import { Provider } from "react-redux";
@@ -19,6 +20,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={home}></Route>
             <Route exact path="/about" component={about}></Route>
+            <Route exact path="/theteam" component={theteam}></Route>
             <Route exact path="/shop" component={shop}></Route>
           </Switch>
         </Router>

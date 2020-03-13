@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Merriweather&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Tangerine&display=swa");
 
 *,
 body,
@@ -13,6 +14,18 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.flex-left {
+  display: flex;
+  align-items: center;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.fancytext {
+  font-family: "Tangerine", "Merriweather", san-serif;
+  font-size: 7em;
 }
 
 .menu {
@@ -36,6 +49,10 @@ html {
 .container {
   padding: 5vh 5em;
 }
+.reveal {
+  height: 100% !important;
+  transition: height 0.5s ease-in-out;
+}
 
 /* home */
 .about_section > p {
@@ -56,6 +73,11 @@ html {
 /* navbar */
 .navbar {
   height: 4rem;
+}
+.stickynav {
+  height: 65px !important;
+  background: #333 !important;
+  transition: 0.3s all ease-in-out;
 }
 
 /* components */
@@ -186,6 +208,30 @@ html {
 .totalcost {
   color: #fff;
   background: none;
+}
+/* placeholder*/
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #fff;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #fff;
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #fff;
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #fff;
+}
+
+input:active,
+input:focus,
+button:active,
+button:focus {
+  outline: none;
 }
 
 /* SCROLL BAR */
