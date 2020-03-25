@@ -3,6 +3,11 @@ import styled from "styled-components";
 
 import StaticNavbar from "../components/layout/StaticNavbar";
 import Footer from "../components/layout/Footer";
+import Item from "../components/items/Item";
+import ItemSkeleton from "../components/items/ItemSkeleton";
+
+import { connect } from "react-redux";
+import { getAllItems } from "../redux/actions/dataActions";
 
 const Container = styled.section`
   width: 100%;
@@ -23,7 +28,7 @@ const Subtitle = styled.p`
   text-transform: uppercase;
   margin-top: 1em;
 `;
-const Expand = styled.p`
+const Expand = styled.span`
   float: right;
   cursor: pointer;
   font-size: 0.9em;
@@ -55,8 +60,19 @@ const Listings = styled.div`
 class shop extends Component {
   componentDidMount() {
     window.scrollTo(0, 0);
+    this.props.getAllItems();
+
+    var accItem = document.getElementsByClassName("accordionItem");
+    var accHD = document.getElementsByClassName("accordionItemHeading");
   }
+
   render() {
+    const { items, loading } = this.props.data;
+    let itemsMarkup = !loading ? (
+      items.map(item => <Item key={item.itemId} item={item} />)
+    ) : (
+      <ItemSkeleton />
+    );
     return (
       <div>
         <StaticNavbar />
@@ -64,8 +80,8 @@ class shop extends Component {
           <SideMenu>
             <Subtitle>
               Style{" "}
-              <Expand class="expand">
-                <i class="fas fa-plus"></i>
+              <Expand className="accordionItem">
+                <i className="fas fa-plus"></i>
               </Expand>
             </Subtitle>
 
@@ -102,8 +118,8 @@ class shop extends Component {
             </Form>
             <Subtitle>
               Color{" "}
-              <Expand>
-                <i class="fas fa-plus"></i>
+              <Expand className="accordionItem">
+                <i className="fas fa-plus"></i>
               </Expand>
             </Subtitle>
             <Form>
@@ -157,8 +173,8 @@ class shop extends Component {
             </Form>
             <Subtitle>
               Size{" "}
-              <Expand>
-                <i class="fas fa-plus"></i>
+              <Expand className="accordionItem">
+                <i className="fas fa-plus"></i>
               </Expand>
             </Subtitle>
             <Form>
@@ -183,8 +199,8 @@ class shop extends Component {
             </Form>
             <Subtitle>
               Neckline{" "}
-              <Expand>
-                <i class="fas fa-plus"></i>
+              <Expand className="accordionItem">
+                <i className="fas fa-plus"></i>
               </Expand>
             </Subtitle>
             <Form>
@@ -233,7 +249,7 @@ class shop extends Component {
               <br />
             </Form>
           </SideMenu>
-          <Listings>content</Listings>
+          <Listings>{itemsMarkup}</Listings>
         </Container>
         <Footer />
       </div>
@@ -241,4 +257,8 @@ class shop extends Component {
   }
 }
 
-export default shop;
+const mapStateToProps = state => ({
+  data: state.data
+});
+
+export default connect(mapStateToProps, { getAllItems })(shop);

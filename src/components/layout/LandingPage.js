@@ -11,27 +11,29 @@ const Landing = styled.section`
   height: 95vh;
   background-image: url("${dress_landing}");
   background-size: cover;
-  background-position: center;
+  background-position: 25% center;
   background-attachment: fixed;
   background-repeat: no-repeat;
   padding: 0 5em;
+  align-content: center;
 `;
 const LandingText = styled.p`
-  text-align: left;
+  width: 100%;
+  text-align: center;
+  line-height: 100%;
   color: #fff;
   text-shadow: 0 0 0.1em #000;
 `;
 const LandingButton = styled(Link)`
-  position: absolute;
-  margin-top: 150px;
   padding: 1em 2em;
   background: #af9e73;
   color: #fff;
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 1.1em;
   cursor: pointer;
   box-shadow: 0 0 0.7em #af9e73;
   transition: all 0.2s ease-in-out;
+  margin-top: 1.5em;
 
   &:hover {
     text-decoration: none;
@@ -44,8 +46,8 @@ const LandingButton = styled(Link)`
 export class LandingPage extends Component {
   render() {
     return (
-      <Landing className="flex">
-        <LandingText className="fancytext">
+      <Landing className="flex flex-wrap landing_container">
+        <LandingText className="fancytext landingtext">
           Intricately woven dresses made perfect for you.
         </LandingText>
         <LandingButton to="/shop">SHOP NOW</LandingButton>

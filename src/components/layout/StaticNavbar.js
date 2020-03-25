@@ -91,16 +91,20 @@ class StaticNavbar extends Component {
               <StyledLink to="/shop">SHOP</StyledLink>
             </li>
           </ul>
-          <Brand>LUXURITY</Brand>
+          <Brand>
+            <StyledLink to="/">LUXURITY</StyledLink>
+          </Brand>
           <ul className="menu">
             <li>
-              <i class="fas fa-user"></i> SIGN IN
+              <StyledLink to="/login">
+                <i className="fas fa-user"></i> SIGN IN
+              </StyledLink>
             </li>
             <li>
-              <i class="fas fa-shopping-cart"></i> CART
+              <i className="fas fa-shopping-cart"></i> CART
             </li>
             <li>
-              <i class="fas fa-search"></i>
+              <i className="fas fa-search"></i>
             </li>
           </ul>
         </Nav>
@@ -110,13 +114,13 @@ class StaticNavbar extends Component {
         <MobileNav>
           <ul className="menu">
             <li>
-              <i class="fas fa-bars mobile-icon"></i>
+              <i className="fas fa-bars mobile-icon"></i>
             </li>
           </ul>
           <Brand>LUXURITY</Brand>
           <ul className="menu">
             <li>
-              <i class="fas fa-shopping-cart mobile-icon"></i>
+              <i className="fas fa-shopping-cart mobile-icon"></i>
             </li>
           </ul>
         </MobileNav>

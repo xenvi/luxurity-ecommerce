@@ -50,8 +50,9 @@ html {
   padding: 5vh 5em;
 }
 .reveal {
-  height: 100% !important;
-  transition: height 0.5s ease-in-out;
+  opacity: 1 !important;
+  pointer-events: all !important;
+  transition: all 0.5s ease-in-out;
 }
 
 /* home */
@@ -259,6 +260,16 @@ button:focus {
     margin-top: 6rem;
     margin-left: -3.5rem;
   }
+
+  .landing_container {
+    padding: 0 2em !important;
+  }
+  .landingtext {
+    font-size: 5em;
+  }
+  .company-name {
+    font-size: 1.7em !important;
+  }
 }
 @media only screen and (max-width: 1063px) {
   .shoppingCartContainer {
@@ -278,5 +289,44 @@ button:focus {
   }
   .deleteButton {
     margin-right: 1.5em;
+  }
+
+  .landingtext {
+    font-size: 4em;
+  }
+  .about_section > p {
+    margin: 0 2em;
+    text-align: center;
+  }
+  .vertical-line {
+    display: none;
+  }
+  .company-name {
+    font-size: 2.5em !important;
+  }
+  .horizontal-line {
+    display: block !important;
+    margin: 1em 0;
+  }
+  .image-box {
+    width: 100% !important;
+    height: 300px !important;
+  }
+  .text-box {
+    width: 100% !important;
+    height: auto !important;
+  }
+  .text-box > div {
+    width: 85% !important;
+    font-size: 0.9em !important;
+  }
+  .subscribe-title {
+    font-size: 3.75em !important;
+  }
+  .subscribe-text {
+    font-size: 1em !important;
+  }
+  input {
+    width: 90% !important;
   }
 }

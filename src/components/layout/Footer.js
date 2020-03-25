@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+const Wrapper = styled.section`
+  flex-direction: column;
+`;
 const Container = styled.section`
   display: flex;
   align-items: top;
@@ -39,43 +42,45 @@ const Column = styled.div`
 class Footer extends Component {
   render() {
     return (
-      <Container className="footer">
-        <Column>
-          <Header>ABOUT US</Header>
-          <Links>
-            <li>Our Story</li>
-            <li>Business Model</li>
-            <li>Find Stores Near You</li>
-          </Links>
-        </Column>
-        <Column>
-          <Header>HELP CENTER</Header>
-          <Links>
-            <li>FAQ's</li>
-            <li>Support</li>
-            <li>Sizing Guide</li>
-            <li>Ordering & Payment</li>
-          </Links>
-        </Column>
-        <Column>
-          <Header>LEGAL</Header>
-          <Links>
-            <li>Privacy Policy</li>
-            <li>Terms & Conditions</li>
-            <li>Refund Policy</li>
-          </Links>
-        </Column>
-        <Column>
-          <Header>FOLLOW US</Header>
-          <Links className="socialicons">
-            <i class="fab fa-instagram"></i>
-            <i class="fab fa-twitter"></i>
-            <i class="fab fa-facebook-f"></i>
-            <i class="fab fa-linkedin-in"></i>
-          </Links>
-        </Column>
-        <Copyright>LUXURITY © 2020</Copyright>
-      </Container>
+      <Wrapper>
+        <Container className="footer">
+          <Column>
+            <Header>ABOUT US</Header>
+            <Links>
+              <li>Our Story</li>
+              <li>Business Model</li>
+              <li>Find Stores Near You</li>
+            </Links>
+          </Column>
+          <Column>
+            <Header>HELP CENTER</Header>
+            <Links>
+              <li>FAQ's</li>
+              <li>Support</li>
+              <li>Sizing Guide</li>
+              <li>Ordering & Payment</li>
+            </Links>
+          </Column>
+          <Column>
+            <Header>LEGAL</Header>
+            <Links>
+              <li>Privacy Policy</li>
+              <li>Terms & Conditions</li>
+              <li>Refund Policy</li>
+            </Links>
+          </Column>
+          <Column>
+            <Header>FOLLOW US</Header>
+            <Links className="socialicons">
+              <i className="fab fa-instagram"></i>
+              <i className="fab fa-twitter"></i>
+              <i className="fab fa-facebook-f"></i>
+              <i className="fab fa-linkedin-in"></i>
+            </Links>
+          </Column>
+          <Copyright>LUXURITY © 2020</Copyright>
+        </Container>
+      </Wrapper>
     );
   }
 }

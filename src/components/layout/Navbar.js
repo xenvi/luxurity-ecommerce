@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 const Nav = styled.nav`
   position: fixed;
@@ -17,7 +18,7 @@ const Nav = styled.nav`
 
   transition: 0.3s all ease-in-out;
 `;
-const Brand = styled.h1`
+const Brand = styled.h2`
   margin: auto 0;
   color: #fff;
 `;
@@ -44,15 +45,53 @@ const StyledLink = styled(Link)`
 const MobileNav = styled.nav`
   position: fixed;
   width: 100%;
-  height: 50px;
+  height: 100px;
   background: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 0.9em;
-  margin-top: 25px;
   text-shadow: 0 0 1em #000;
   z-index: 10;
+
+  transition: 0.3s all ease-in-out;
+`;
+
+const Profile = styled.span`
+  color: #fff;
+
+  i {
+    font-size: 1.1em;
+    padding: 0 5px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Dropdown = styled.li`
+  opacity: 0;
+  pointer-events: none;
+  color: #af9e73;
+  padding: 0.5em 1em;
+  font-weight: bold;
+  text-shadow: none;
+  margin-top: 15px;
+  position: absolute;
+  background: #fff;
+
+  &:hover {
+    color: #333;
+  }
+
+  transition: all 0.5s ease-in-out;
+`;
+const Arrow = styled.i`
+  position: absolute;
+  font-size: 4em;
+  top: -10px;
+  color: #fff;
 `;
 
 class Navbar extends Component {
@@ -70,7 +109,7 @@ class Navbar extends Component {
     window.addEventListener("resize", this.updateWindowDimensions);
     window.onscroll = function() {
       var nav = document.querySelector("nav");
-      if (window.pageYOffset > 100) {
+      if (window.pageYOffset > 75) {
         nav.classList.add("stickynav");
       } else {
         nav.classList.remove("stickynav");
@@ -89,7 +128,17 @@ class Navbar extends Component {
     });
   }
 
+  openDropdown() {
+    var dropdown = document.getElementsByClassName("dropdown")[0];
+    dropdown.classList.toggle("reveal");
+  }
+
   render() {
+    const {
+      authenticated,
+      credentials: { handle }
+    } = this.props.user;
+
     if (this.state.width >= 800) {
       return (
         <Nav className="navbar">
@@ -104,10 +153,24 @@ class Navbar extends Component {
               <StyledLink to="/shop">SHOP</StyledLink>
             </li>
           </ul>
-          <Brand>LUXURITY</Brand>
+          <Brand>
+            <StyledLink to="/">LUXURITY</StyledLink>
+          </Brand>
           <ul className="menu">
             <li>
-              <i class="fas fa-user"></i> SIGN IN
+              {authenticated ? (
+                <Profile className="profile" onClick={this.openDropdown}>
+                  <i className="fas fa-user"></i> {handle}{" "}
+                  <i className="fas fa-angle-down"></i>
+                  <Dropdown className="dropdown">
+                    <Arrow className="fas fa-caret-up"></Arrow>LOGOUT
+                  </Dropdown>
+                </Profile>
+              ) : (
+                <StyledLink to="/login">
+                  <i className="fas fa-user"></i> SIGN IN
+                </StyledLink>
+              )}
             </li>
             <li>
               <i class="fas fa-shopping-cart"></i>
@@ -120,7 +183,7 @@ class Navbar extends Component {
       );
     } else {
       return (
-        <MobileNav>
+        <MobileNav className="navbar">
           <ul className="menu">
             <li>
               <i class="fas fa-bars mobile-icon"></i>
@@ -138,4 +201,8 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps, null)(Navbar);

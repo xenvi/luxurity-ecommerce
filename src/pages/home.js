@@ -20,10 +20,17 @@ const About = styled.section`
   height: 350px;
   background: #333;
   color: #fff;
+  align-content: center;
 `;
 const VerticalLine = styled.div`
   height: 80%;
   width: 0.2em;
+  background: #444;
+`;
+const HorizontalLine = styled.div`
+  display: none;
+  height: 0.2em;
+  width: 80%;
   background: #444;
 `;
 
@@ -35,13 +42,14 @@ const Featured = styled.section`
 const Image = styled.img`
   width: 23em;
   height: 35em;
-  margin: 0 0.5em;
+  margin: 0.5em 0.5em;
 `;
 const Title = styled.p`
   width: 100%;
   text-align: center;
   font-size: 6em;
   color: #af9e73;
+  line-height: 100%;
 `;
 const Info = styled.section`
   margin-top: 10vh;
@@ -77,7 +85,6 @@ const Subtitle = styled.h5`
   color: #fff;
   text-align: center;
   text-shadow: 0 0 0.2em #000;
-  margin-top: -50px;
 `;
 const Input = styled.input`
   width: 100%;
@@ -119,6 +126,7 @@ const TextBox = styled.div`
   height: 550px;
   background: none;
   font-size: 1.4em;
+  padding-bottom: 1em;
 `;
 
 class home extends Component {
@@ -130,13 +138,19 @@ class home extends Component {
       <div>
         <Navbar />
         <LandingPage />
-        <About className="flex about_section">
-          <p style={{ fontSize: "2em", color: "#af9e73" }}>LUXURITY CO.</p>
-          <VerticalLine></VerticalLine>
+        <About className="flex flex-wrap about_section">
+          <p
+            className="company-name"
+            style={{ fontSize: "2em", color: "#af9e73" }}
+          >
+            LUXURITY CO.
+          </p>
+          <VerticalLine className="vertical-line"></VerticalLine>
+          <HorizontalLine className="horizontal-line"></HorizontalLine>
           <p style={{ maxWidth: "35em" }}>
             We are re-introducing the beauty of regality in fashion. Using only
             the finest materials, our dresses will bring you comfort and
-            confidence for any occassion.
+            confidence for any occasion.
           </p>
         </About>
         <Featured className="flex">
@@ -163,8 +177,8 @@ class home extends Component {
           <Button to="/shop">View More ></Button>
         </Featured>
         <Info className="flex flex-wrap">
-          <ImageBox src={info_left}></ImageBox>
-          <TextBox className="flex">
+          <ImageBox src={info_left} className="image-box"></ImageBox>
+          <TextBox className="flex text-box">
             <div style={{ width: "60%", color: "#555" }}>
               <p
                 style={{
@@ -172,7 +186,7 @@ class home extends Component {
                   fontSize: "4em",
                   height: "1.2em"
                 }}
-                className="fancytext"
+                className="fancytext text-title"
               >
                 Comfort
               </p>
@@ -180,7 +194,7 @@ class home extends Component {
               season confidently and beautifully.
             </div>
           </TextBox>
-          <TextBox className="flex">
+          <TextBox className="flex text-box">
             <div style={{ width: "60%", color: "#555", textAlign: "right" }}>
               <p
                 style={{
@@ -189,7 +203,7 @@ class home extends Component {
 
                   height: "1.2em"
                 }}
-                className="fancytext"
+                className="fancytext text-title"
               >
                 Quality
               </p>
@@ -197,18 +211,20 @@ class home extends Component {
               finest materials are used to create dresses perfect for you.
             </div>
           </TextBox>
-          <ImageBox src={info_right}></ImageBox>
+          <ImageBox src={info_right} className="image-box"></ImageBox>
         </Info>
         <Subscribe>
           <Container className="flex">
             <Title
-              className="fancytext"
+              className="fancytext subscribe-title"
               style={{ color: "#ebd398", textShadow: "0 0 0.2em #000" }}
             >
               Subscribe To Our Newsletter
             </Title>
-            <Subtitle>Stay updated on our newest products and sales !</Subtitle>
-            <Form className="flex">
+            <Subtitle className="subscribe-text">
+              Stay updated on our newest products and sales !
+            </Subtitle>
+            <Form className="flex subscribe-form">
               <Input type="text" placeholder="Enter your email ..."></Input>
               <Button>SUBSCRIBE</Button>
             </Form>

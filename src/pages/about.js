@@ -23,6 +23,9 @@ const Container = styled.section`
 `;
 const Content = styled.div`
   width: 900px;
+  @media only screen and (max-width: 1063px) {
+    width: 90%;
+  }
 `;
 const Header = styled.section`
   width: 100%;
@@ -33,10 +36,14 @@ const Header = styled.section`
   background-attachment: fixed;
 `;
 const LandingText = styled.p`
+  text-align: center;
   color: #fff;
   text-shadow: 0 0 0.2em #000;
   padding: 1.5em 1em;
   z-index: 1;
+  @media only screen and (max-width: 1063px) {
+    padding: 0 0.5em;
+  }
 `;
 const SubMenu = styled.div`
   width: 100%;
@@ -96,7 +103,7 @@ class about extends Component {
               </StyledLink>
             </li>
             <li>
-              <StyledLink to="/about">BUSINESS MODEL</StyledLink>
+              <StyledLink to="/businessmodel">BUSINESS MODEL</StyledLink>
             </li>
             <li>
               <StyledLink to="/theteam">MEET THE TEAM</StyledLink>
