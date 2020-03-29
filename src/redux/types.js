@@ -16,3 +16,7 @@ export const SET_ITEM = "SET_ITEM";
 export const DELETE_ITEM = "DELETE_ITEM";
 export const CREATE_ITEM = "CREATE_ITEM";
 export const LOADING_DATA = "LOADING_DATA";
+export const INCREMENT_COUNT = "INCREMENT_COUNT";
+export const DECREMENT_COUNT = "DECREMENT_COUNT";
+export const RESET_COUNT = "RESET_COUNT";
+export const ADD_TO_CART = "ADD_TO_CART";

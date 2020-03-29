@@ -11,6 +11,8 @@ import about from "./pages/about";
 import theteam from "./pages/theteam";
 import businessmodel from "./pages/businessmodel";
 
+import cart from "./pages/cart";
+
 // Redux
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -19,6 +21,7 @@ import { logoutUser, getUserData } from "./redux/actions/userActions";
 
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import item from "./pages/item";
 
 axios.defaults.baseURL = "https://us-central1-luxurity.cloudfunctions.net/api";
 
@@ -53,6 +56,9 @@ class App extends Component {
               component={businessmodel}
             ></Route>
             <Route exact path="/shop" component={shop}></Route>
+            <Route exact path="/items/:itemId" component={item}></Route>
+
+            <Route exact path="/cart" component={cart}></Route>
           </Switch>
         </Router>
       </Provider>

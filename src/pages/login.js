@@ -156,6 +156,9 @@ class login extends Component {
   };
 
   render() {
+    const {
+      UI: { loading }
+    } = this.props;
     const { errors } = this.state;
     return (
       <div
@@ -206,8 +209,11 @@ class login extends Component {
               ></Input>
               {errors.password && <Error>{errors.password}</Error>}
               {errors.general && <Error>{errors.general}</Error>}
-
-              <Button onClick={this.handleSubmit}>LOG IN</Button>
+              {loading ? (
+                <Button onClick={this.handleSubmit}>LOADING ...</Button>
+              ) : (
+                <Button onClick={this.handleSubmit}>LOG IN</Button>
+              )}
             </Form>
 
             <Api className="flex flex-wrap">

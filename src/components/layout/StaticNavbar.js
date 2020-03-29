@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
+import { logoutUser } from "../../redux/actions/userActions";
 
 const Nav = styled.nav`
   width: 100%;
@@ -50,6 +53,92 @@ const MobileNav = styled.nav`
   z-index: 10;
 `;
 
+const Profile = styled.span`
+  color: #fff;
+
+  i {
+    font-size: 1.1em;
+    padding: 0 5px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Dropdown = styled.li`
+  opacity: 0;
+  pointer-events: none;
+  color: #af9e73;
+  padding: 0.5em 1em;
+  font-weight: bold;
+  text-shadow: none;
+  margin-top: 15px;
+  position: absolute;
+  background: #fff;
+
+  &:hover {
+    color: #333;
+  }
+
+  transition: all 0.5s ease-in-out;
+`;
+const Arrow = styled.i`
+  position: absolute;
+  font-size: 4em;
+  top: -10px;
+  color: #fff;
+`;
+const HiddenNav = styled.div`
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: #333;
+  color: #fff;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.5s ease-in-out;
+`;
+const Close = styled.span`
+  position: absolute;
+  top: 2em;
+  right: 4em;
+
+  i {
+    font-size: 1.5em;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+`;
+const Hamburger = styled.i`
+  &:hover {
+    cursor: pointer;
+  }
+`;
+const Search = styled.input`
+  width: 85% !important;
+  background: none;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  padding: 0.25em 0.5em;
+`;
+const ItemCount = styled.span`
+  position: absolute;
+  text-align: center;
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-top: -10px;
+  margin-left: 3px;
+  background: #fff;
+  color: #69614c;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+`;
+
 class StaticNavbar extends Component {
   constructor(props) {
     super(props);
@@ -69,14 +158,33 @@ class StaticNavbar extends Component {
     window.removeEventListener("resize", this.updateWindowDimensions);
   }
 
-  updateWindowDimensions() {
+  updateWindowDimensions = () => {
     this.setState({
       width: window.innerWidth,
       height: window.innerHeight
     });
-  }
+  };
+
+  openDropdown = () => {
+    var dropdown = document.getElementsByClassName("dropdown")[0];
+    dropdown.classList.toggle("reveal");
+  };
+
+  logoutUser = e => {
+    e.preventDefault();
+    this.props.logoutUser();
+  };
 
   render() {
+    const {
+      user: {
+        authenticated,
+        credentials: { handle }
+      },
+      data: { items }
+    } = this.props;
+    const totalItems = items.filter(c => c.addedToCart > 0).length;
+
     if (this.state.width >= 800) {
       return (
         <Nav className="navbar">
@@ -96,12 +204,25 @@ class StaticNavbar extends Component {
           </Brand>
           <ul className="menu">
             <li>
-              <StyledLink to="/login">
-                <i className="fas fa-user"></i> SIGN IN
-              </StyledLink>
+              {authenticated ? (
+                <Profile className="profile" onClick={this.openDropdown}>
+                  <i className="fas fa-user"></i> {handle}{" "}
+                  <i className="fas fa-angle-down"></i>
+                  <Dropdown className="dropdown" onClick={this.logoutUser}>
+                    <Arrow className="fas fa-caret-up"></Arrow>LOGOUT
+                  </Dropdown>
+                </Profile>
+              ) : (
+                <StyledLink to="/login">
+                  <i className="fas fa-user"></i> SIGN IN
+                </StyledLink>
+              )}
             </li>
             <li>
-              <i className="fas fa-shopping-cart"></i> CART
+              <StyledLink to="/cart">
+                <i class="fas fa-shopping-cart"></i>
+                <ItemCount>{totalItems}</ItemCount>
+              </StyledLink>
             </li>
             <li>
               <i className="fas fa-search"></i>
@@ -111,22 +232,79 @@ class StaticNavbar extends Component {
       );
     } else {
       return (
-        <MobileNav>
-          <ul className="menu">
-            <li>
-              <i className="fas fa-bars mobile-icon"></i>
-            </li>
-          </ul>
-          <Brand>LUXURITY</Brand>
-          <ul className="menu">
-            <li>
-              <i className="fas fa-shopping-cart mobile-icon"></i>
-            </li>
-          </ul>
-        </MobileNav>
+        <div>
+          {" "}
+          <MobileNav className="navbar">
+            <ul className="menu">
+              <li>
+                <Hamburger
+                  onClick={this.toggleNav}
+                  className="fas fa-bars mobile-icon"
+                ></Hamburger>
+              </li>
+            </ul>
+            <Brand>
+              <StyledLink to="/">LUXURITY</StyledLink>
+            </Brand>
+            <ul className="menu">
+              <li>
+                <StyledLink to="/cart">
+                  <i class="fas fa-shopping-cart mobile-icon"></i>
+                  <ItemCount>{totalItems}</ItemCount>
+                </StyledLink>
+              </li>
+            </ul>
+          </MobileNav>
+          <HiddenNav className="flex flex-wrap hiddenNav">
+            {" "}
+            <ul className="mobilemenu">
+              <Close onClick={this.toggleNav}>
+                <i class="fas fa-times"></i>
+              </Close>
+              <li>
+                <StyledLink to="/">HOME</StyledLink>
+              </li>
+              <li>
+                <StyledLink to="/about">ABOUT</StyledLink>
+              </li>
+              <li>
+                <StyledLink to="/shop">SHOP</StyledLink>
+              </li>
+              <hr style={{ background: "#fff" }}></hr>
+              <li>
+                {authenticated ? (
+                  <Profile className="profile" onClick={this.openDropdown}>
+                    <i className="fas fa-user"></i> {handle}{" "}
+                    <i className="fas fa-angle-down"></i>
+                    <Dropdown className="dropdown" onClick={this.logoutUser}>
+                      <Arrow className="fas fa-caret-up"></Arrow>LOGOUT
+                    </Dropdown>
+                  </Profile>
+                ) : (
+                  <StyledLink to="/login">
+                    <i className="fas fa-user"></i> SIGN IN
+                  </StyledLink>
+                )}
+              </li>
+              <li>
+                <i className="fas fa-search"></i>
+                <Search type="text" id="search" name="search"></Search>
+              </li>
+            </ul>
+          </HiddenNav>
+        </div>
       );
     }
   }
 }
 
-export default StaticNavbar;
+const mapStateToProps = state => ({
+  user: state.user,
+  data: state.data
+});
+
+const mapActionsToProps = {
+  logoutUser
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(StaticNavbar);

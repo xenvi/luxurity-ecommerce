@@ -2,10 +2,16 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 300px;
+  width: 320px;
   height: 490px;
   background: none;
   border-radius: 5px;
+  padding: 1em;
+  transition: all 0.5s ease-in-out;
+  &:hover {
+    background: #fff;
+    transition: all 0.5s ease-in-out;
+  }
 `;
 
 const Price = styled.p`
@@ -16,6 +22,7 @@ const Price = styled.p`
 `;
 
 const Title = styled.p`
+  color: #333;
   margin-top: 10px;
   letter-spacing: 1px;
   line-height: 100%;

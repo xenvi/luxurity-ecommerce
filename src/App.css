@@ -46,6 +46,19 @@ html {
   margin: 0 0.5em !important;
 }
 
+.mobilemenu {
+  list-style: none;
+  margin: auto 0;
+}
+.mobilemenu > li {
+  padding: 1em 0;
+  color: #fff;
+}
+.mobilemenu > li > i {
+  font-size: 1.2em;
+  margin: 0 0.5em 0 0;
+}
+
 .container {
   padding: 5vh 5em;
 }
@@ -53,6 +66,14 @@ html {
   opacity: 1 !important;
   pointer-events: all !important;
   transition: all 0.5s ease-in-out;
+}
+.slidein {
+  left: 0 !important;
+  transition: all 1s ease-in-out;
+}
+.slideout {
+  left: -100vw !important;
+  transition: all 1s ease-in-out;
 }
 
 /* home */
@@ -116,6 +137,38 @@ html {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 1.1rem;
+}
+.size-form {
+  display: inline-block;
+  width: 200px;
+  margin-left: 0.5em;
+  padding: 1em 0;
+}
+.size-form input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
+}
+.size-form label {
+  font-size: 0.9em;
+  text-align: center;
+  display: inline-block;
+  padding-top: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  margin: 0 0.25em 0 0;
+}
+.size-form label:hover {
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+.size-form input[type="radio"]:focus + label {
+  border: 1px solid #af9e73;
+}
+.size-form input[type="radio"]:checked + label {
+  border: 1px solid #af9e73;
 }
 /* add to cart bottom menu */
 .addToCart {

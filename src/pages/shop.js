@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+import { Link } from "react-router-dom";
+
 import StaticNavbar from "../components/layout/StaticNavbar";
 import Footer from "../components/layout/Footer";
 import Item from "../components/items/Item";
 import ItemSkeleton from "../components/items/ItemSkeleton";
 
 import { connect } from "react-redux";
-import { getAllItems } from "../redux/actions/dataActions";
+import { getAllItems, getItem } from "../redux/actions/dataActions";
 
 const Container = styled.section`
   width: 100%;
@@ -50,6 +52,11 @@ const Listings = styled.div`
   float: left;
   padding: 2em;
 `;
+const ItemWrapper = styled(Link)`
+  &:hover {
+    text-decoration: none;
+  }
+`;
 
 /*function expand() {
   const currentElem = this;
@@ -69,7 +76,11 @@ class shop extends Component {
   render() {
     const { items, loading } = this.props.data;
     let itemsMarkup = !loading ? (
-      items.map(item => <Item key={item.itemId} item={item} />)
+      items.map(item => (
+        <ItemWrapper to={`/items/${item.itemId}`}>
+          <Item key={item.itemId} item={item} />
+        </ItemWrapper>
+      ))
     ) : (
       <ItemSkeleton />
     );
@@ -261,4 +272,4 @@ const mapStateToProps = state => ({
   data: state.data
 });
 
-export default connect(mapStateToProps, { getAllItems })(shop);
+export default connect(mapStateToProps, { getAllItems, getItem })(shop);

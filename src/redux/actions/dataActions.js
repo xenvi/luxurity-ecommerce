@@ -3,10 +3,27 @@ import {
   SET_ITEM,
   DELETE_ITEM,
   CREATE_ITEM,
-  LOADING_DATA
+  LOADING_DATA,
+  INCREMENT_COUNT,
+  DECREMENT_COUNT,
+  RESET_COUNT,
+  ADD_TO_CART
 } from "../types";
 
 import axios from "axios";
+
+export const incrementCount = itemId => dispatch => {
+  dispatch({ type: INCREMENT_COUNT });
+};
+export const decrementCount = () => dispatch => {
+  dispatch({ type: DECREMENT_COUNT });
+};
+export const resetCount = () => dispatch => {
+  dispatch({ type: RESET_COUNT });
+};
+export const addToCart = () => dispatch => {
+  dispatch({ type: ADD_TO_CART });
+};
 
 export const getAllItems = () => dispatch => {
   dispatch({ type: LOADING_DATA });
