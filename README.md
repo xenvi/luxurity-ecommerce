@@ -5,3 +5,7 @@ Goals:
 - improve aesthetic / format of design
 - smoother mobile experience
 - create complete functional e-commerce site
+
+To do:
+- Sort items functionality
+- alerts after actions dispatched
