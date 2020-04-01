@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import "./App.css";
 
 // Pages
@@ -10,7 +11,7 @@ import shop from "./pages/shop";
 import about from "./pages/about";
 import theteam from "./pages/theteam";
 import businessmodel from "./pages/businessmodel";
-
+import item from "./pages/item";
 import cart from "./pages/cart";
 
 // Redux
@@ -21,7 +22,8 @@ import { logoutUser, getUserData } from "./redux/actions/userActions";
 
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import item from "./pages/item";
+
+import { addToCart } from "./redux/actions/dataActions";
 
 axios.defaults.baseURL = "https://us-central1-luxurity.cloudfunctions.net/api";
 
@@ -37,8 +39,13 @@ if (token) {
     store.dispatch(getUserData());
   }
 }
-
+if (localStorage.getItem("cartItems")) {
+  let cartItems = localStorage.getItem("cartItems");
+  store.dispatch(addToCart(cartItems));
+}
 class App extends Component {
+  componentWillMount() {}
+
   render() {
     return (
       <Provider store={store}>

@@ -7,12 +7,15 @@ import {
   INCREMENT_COUNT,
   DECREMENT_COUNT,
   RESET_COUNT,
-  ADD_TO_CART
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  CHECKOUT
 } from "../types";
 
 const initialState = {
   item: {},
   items: [],
+  cartItems: [],
   loading: false
 };
 
@@ -75,12 +78,22 @@ export default function(state = initialState, action) {
     case ADD_TO_CART:
       return {
         ...state,
-        item: {
-          ...state.item,
-          addedToCart: 1
-        }
+        cartItems: [...state.cartItems, action.payload],
+        loading: false
       };
-
+    case REMOVE_FROM_CART:
+      let index = state.cartItems.findIndex(
+        item => item.itemId === action.payload
+      );
+      state.cartItems.splice(index, 1);
+      return {
+        ...state
+      };
+    case CHECKOUT:
+      return {
+        ...state,
+        cartItems: []
+      };
     default:
       return state;
   }

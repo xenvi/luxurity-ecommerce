@@ -11,24 +11,32 @@ import { getItem } from "../redux/actions/dataActions";
 
 const Container = styled.section`
   min-height: 80vh;
+  @media only screen and (max-width: 800px) {
+    padding-top: 50px;
+  }
 `;
 const Image = styled.img`
   width: auto;
   height: 700px;
+  @media only screen and (max-width: 800px) {
+    width: 70%;
+    height: auto;
+    margin-top: 1em;
+  }
 `;
 const Details = styled.div`
   width: 500px;
   height: 700px;
   padding: 2em;
+  @media only screen and (max-width: 800px) {
+    height: auto;
+  }
 `;
 const Title = styled.p`
   font-size: 1.3em;
   color: #333;
   text-transform: uppercase;
   letter-spacing: 2px;
-`;
-const Created = styled.p`
-  color: #999;
 `;
 const Price = styled.p`
   color: #333;
@@ -89,7 +97,7 @@ export class item extends Component {
     return (
       <div>
         <StaticNavbar />
-        <Container className="flex">
+        <Container className="flex flex-wrap">
           <Image src={imageUrl}></Image>
           <Details>
             <Title>{title}</Title>
@@ -127,7 +135,7 @@ export class item extends Component {
                 <label for="large">L</label>
               </form>
             </Size>
-            <Counter item={this.props.data.item}></Counter>
+            <Counter items={this.props.data.item}></Counter>
             <Description>
               <span>Description</span>
               <li>

@@ -39,6 +39,24 @@ const StyledLink = styled(Link)`
     transition: border-bottom 0.2s ease-in-out;
   }
 `;
+const StyledLink2 = styled(Link)`
+  text-decoration: none;
+  color: #fff;
+  transition: border-bottom 0.2s ease-in-out;
+
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+    color: #fff;
+  }
+
+  i {
+    font-size: 1.2em;
+  }
+`;
 
 const MobileNav = styled.nav`
   position: fixed;
@@ -175,15 +193,24 @@ class StaticNavbar extends Component {
     this.props.logoutUser();
   };
 
+  toggleNav = () => {
+    var hiddenNav = document.getElementsByClassName("hiddenNav")[0];
+    hiddenNav.classList.toggle("reveal");
+  };
+  closeNav = () => {
+    var hiddenNav = document.getElementsByClassName("hiddenNav")[0];
+    hiddenNav.classList.toggle("reveal");
+  };
+
   render() {
     const {
       user: {
         authenticated,
         credentials: { handle }
       },
-      data: { items }
+      data: { cartItems }
     } = this.props;
-    const totalItems = items.filter(c => c.addedToCart > 0).length;
+    const totalItems = cartItems.length;
 
     if (this.state.width >= 800) {
       return (
@@ -200,7 +227,7 @@ class StaticNavbar extends Component {
             </li>
           </ul>
           <Brand>
-            <StyledLink to="/">LUXURITY</StyledLink>
+            <StyledLink2 to="/">LUXURITY</StyledLink2>
           </Brand>
           <ul className="menu">
             <li>
@@ -219,10 +246,10 @@ class StaticNavbar extends Component {
               )}
             </li>
             <li>
-              <StyledLink to="/cart">
+              <StyledLink2 to="/cart">
                 <i class="fas fa-shopping-cart"></i>
                 <ItemCount>{totalItems}</ItemCount>
-              </StyledLink>
+              </StyledLink2>
             </li>
             <li>
               <i className="fas fa-search"></i>
@@ -244,14 +271,14 @@ class StaticNavbar extends Component {
               </li>
             </ul>
             <Brand>
-              <StyledLink to="/">LUXURITY</StyledLink>
+              <StyledLink2 to="/">LUXURITY</StyledLink2>
             </Brand>
             <ul className="menu">
               <li>
-                <StyledLink to="/cart">
+                <StyledLink2 to="/cart">
                   <i class="fas fa-shopping-cart mobile-icon"></i>
                   <ItemCount>{totalItems}</ItemCount>
-                </StyledLink>
+                </StyledLink2>
               </li>
             </ul>
           </MobileNav>

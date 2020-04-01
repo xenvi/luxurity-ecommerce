@@ -17,6 +17,10 @@ const Container = styled.section`
   height: auto;
   background: #f3f3f3;
   display: flex;
+
+  @media only screen and (max-width: 800px) {
+    padding-top: 50px;
+  }
 `;
 const SideMenu = styled.div`
   width: 300px;
@@ -49,8 +53,11 @@ const Form = styled.form`
 `;
 
 const Listings = styled.div`
+  display: flex;
+  flex-wrap: wrap;
   float: left;
   padding: 2em;
+  width: 100%;
 `;
 const ItemWrapper = styled(Link)`
   &:hover {

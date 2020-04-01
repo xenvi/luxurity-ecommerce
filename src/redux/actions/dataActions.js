@@ -7,13 +7,15 @@ import {
   INCREMENT_COUNT,
   DECREMENT_COUNT,
   RESET_COUNT,
-  ADD_TO_CART
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  CHECKOUT
 } from "../types";
 
 import axios from "axios";
 
 export const incrementCount = itemId => dispatch => {
-  dispatch({ type: INCREMENT_COUNT });
+  dispatch({ type: INCREMENT_COUNT, payload: itemId });
 };
 export const decrementCount = () => dispatch => {
   dispatch({ type: DECREMENT_COUNT });
@@ -21,8 +23,22 @@ export const decrementCount = () => dispatch => {
 export const resetCount = () => dispatch => {
   dispatch({ type: RESET_COUNT });
 };
-export const addToCart = () => dispatch => {
-  dispatch({ type: ADD_TO_CART });
+export const addToCart = item => dispatch => {
+  dispatch({ type: LOADING_DATA });
+  localStorage.setItem("cartItems", JSON.stringify(item));
+  dispatch({
+    type: ADD_TO_CART,
+    payload: item
+  });
+};
+export const removeFromCart = item => dispatch => {
+  dispatch({
+    type: REMOVE_FROM_CART,
+    payload: item.itemId
+  });
+};
+export const checkout = () => dispatch => {
+  dispatch({ type: CHECKOUT });
 };
 
 export const getAllItems = () => dispatch => {

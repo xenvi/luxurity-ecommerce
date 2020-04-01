@@ -47,6 +47,24 @@ const StyledLink = styled(Link)`
     font-size: 1.2em;
   }
 `;
+const StyledLink2 = styled(Link)`
+  text-decoration: none;
+  color: #fff;
+  transition: border-bottom 0.2s ease-in-out;
+
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+    color: #fff;
+  }
+
+  i {
+    font-size: 1.2em;
+  }
+`;
 
 const MobileNav = styled.nav`
   position: fixed;
@@ -208,9 +226,9 @@ class Navbar extends Component {
         authenticated,
         credentials: { handle }
       },
-      data: { items }
+      data: { cartItems }
     } = this.props;
-    const totalItems = items.filter(c => c.addedToCart > 0).length;
+    const totalItems = cartItems.length;
 
     if (this.state.width >= 800) {
       return (
@@ -227,7 +245,7 @@ class Navbar extends Component {
             </li>
           </ul>
           <Brand>
-            <StyledLink to="/">LUXURITY</StyledLink>
+            <StyledLink2 to="/">LUXURITY</StyledLink2>
           </Brand>
           <ul className="menu">
             <li>
@@ -246,10 +264,10 @@ class Navbar extends Component {
               )}
             </li>
             <li>
-              <StyledLink to="/cart">
+              <StyledLink2 to="/cart">
                 <i class="fas fa-shopping-cart"></i>
                 <ItemCount>{totalItems}</ItemCount>
-              </StyledLink>
+              </StyledLink2>
             </li>
             <li>
               <i class="fas fa-search"></i>
@@ -271,14 +289,14 @@ class Navbar extends Component {
               </li>
             </ul>
             <Brand>
-              <StyledLink to="/">LUXURITY</StyledLink>
+              <StyledLink2 to="/">LUXURITY</StyledLink2>
             </Brand>
             <ul className="menu">
               <li>
-                <StyledLink to="/cart">
+                <StyledLink2 to="/cart">
                   <i class="fas fa-shopping-cart mobile-icon"></i>{" "}
                   <ItemCount>{totalItems}</ItemCount>
-                </StyledLink>
+                </StyledLink2>
               </li>
             </ul>
           </MobileNav>

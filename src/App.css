@@ -216,25 +216,11 @@ html {
 }
 .cart-price {
   color: #343a40;
-  float: right;
   background: none;
-}
-.cart-image {
-  width: 2rem;
-  float: left;
-}
-.cart-image > img {
-  background: none;
-  width: auto;
-  height: 7.5rem;
-  display: block;
 }
 .nextTo {
-  background: #fff;
   text-align: left;
-  padding: 1em;
-  margin-left: 6.3em;
-  height: 3em;
+  height: auto;
 }
 .deleteButton {
   position: absolute;
@@ -260,8 +246,7 @@ html {
   padding-bottom: 0.5em;
 }
 .totalcost {
-  color: #fff;
-  background: none;
+  color: #333;
 }
 /* placeholder*/
 ::-webkit-input-placeholder {

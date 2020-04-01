@@ -61,7 +61,7 @@ export class Counter extends Component {
   };
 
   handleDecrement = () => {
-    if (this.props.item.quantity > 0) {
+    if (this.props.data.item.quantity > 0) {
       this.props.decrementCount();
     }
   };
@@ -70,31 +70,35 @@ export class Counter extends Component {
     this.props.resetCount();
   };
 
-  addToCart = () => {
-    if (this.props.item.quantity > 0) {
-      this.props.addToCart();
+  addToCart = item => {
+    if (item.quantity > 0) {
+      this.props.addToCart(item);
     }
   };
 
   render() {
+    const { item, loading } = this.props.data;
     return (
       <Container>
         <Title>QUANTITY:</Title>
 
         <Button onClick={() => this.handleDecrement()}>-</Button>
-        <span>{this.props.item.quantity}</span>
+        <span>{item.quantity}</span>
         <Button onClick={() => this.handleIncrement()}>+</Button>
 
         <ResetButton onClick={() => this.handleReset()}>RESET</ResetButton>
         <br />
-        <AddToCart onClick={() => this.addToCart()}>ADD TO CART</AddToCart>
+        <AddToCart onClick={() => this.addToCart(item)}>
+          {loading ? "ADDING..." : "ADD TO CART"}
+        </AddToCart>
       </Container>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  data: state.data
+  data: state.data,
+  UI: state.UI
 });
 
 const mapActionToProps = {

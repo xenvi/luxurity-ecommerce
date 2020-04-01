@@ -39,7 +39,7 @@ export class Item extends Component {
       item: { price, title, imageUrl, itemId }
     } = this.props;
     return (
-      <Container>
+      <Container key={itemId}>
         <div style={{ textAlign: "center" }}>
           <Image src={imageUrl} />
         </div>
