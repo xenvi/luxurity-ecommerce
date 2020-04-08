@@ -39,13 +39,15 @@ if (token) {
     store.dispatch(getUserData());
   }
 }
+
 if (localStorage.getItem("cartItems")) {
   let cartItems = localStorage.getItem("cartItems");
   store.dispatch(addToCart(cartItems));
+} else {
+  localStorage.removeItem("cartItems");
 }
-class App extends Component {
-  componentWillMount() {}
 
+class App extends Component {
   render() {
     return (
       <Provider store={store}>

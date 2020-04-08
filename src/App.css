@@ -76,6 +76,14 @@ html {
   transition: all 1s ease-in-out;
 }
 
+/* accordion */
+
+.panel {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.1s ease-out;
+}
+
 /* home */
 .about_section > p {
   margin: 0 3em;

@@ -165,6 +165,10 @@ const ItemCount = styled.span`
   border-radius: 50%;
   width: 20px;
   height: 20px;
+
+  @media only screen and (max-width: 800px) {
+    margin-left: -5px;
+  }
 `;
 
 class Navbar extends Component {
@@ -172,7 +176,7 @@ class Navbar extends Component {
     super(props);
     this.state = {
       width: 0,
-      height: 0
+      height: 0,
     };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
@@ -180,7 +184,7 @@ class Navbar extends Component {
   componentDidMount() {
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions);
-    window.onscroll = function() {
+    window.onscroll = function () {
       var nav = document.querySelector("nav");
       if (window.pageYOffset > 75) {
         nav.classList.add("stickynav");
@@ -197,7 +201,7 @@ class Navbar extends Component {
   updateWindowDimensions = () => {
     this.setState({
       width: window.innerWidth,
-      height: window.innerHeight
+      height: window.innerHeight,
     });
   };
 
@@ -206,7 +210,7 @@ class Navbar extends Component {
     dropdown.classList.toggle("reveal");
   };
 
-  logoutUser = e => {
+  logoutUser = (e) => {
     e.preventDefault();
     this.props.logoutUser();
   };
@@ -224,9 +228,9 @@ class Navbar extends Component {
     const {
       user: {
         authenticated,
-        credentials: { handle }
+        credentials: { handle },
       },
-      data: { cartItems }
+      data: { cartItems },
     } = this.props;
     const totalItems = cartItems.length;
 
@@ -294,7 +298,7 @@ class Navbar extends Component {
             <ul className="menu">
               <li>
                 <StyledLink2 to="/cart">
-                  <i class="fas fa-shopping-cart mobile-icon"></i>{" "}
+                  <i class="fas fa-shopping-cart mobile-icon"></i>
                   <ItemCount>{totalItems}</ItemCount>
                 </StyledLink2>
               </li>
@@ -343,13 +347,13 @@ class Navbar extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.user,
-  data: state.data
+  data: state.data,
 });
 
 const mapActionsToProps = {
-  logoutUser
+  logoutUser,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Navbar);

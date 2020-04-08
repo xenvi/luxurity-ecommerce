@@ -104,14 +104,14 @@ export class cart extends Component {
       alert("Update");
     }
   }
-  subTotal = item => {
+  subTotal = (item) => {
     var price = item.price;
     var quantity = item.quantity;
     var subTotal = price * quantity;
     var finalSubTotal = parseFloat(Math.round(subTotal * 100) / 100).toFixed(2);
     return finalSubTotal;
   };
-  callbackFunction = cartItems => {
+  callbackFunction = (cartItems) => {
     var products = cartItems;
     var total = products.reduce(
       (total, i) => (total += i.quantity * i.price),
@@ -120,8 +120,8 @@ export class cart extends Component {
     var finalTotal = parseFloat(Math.round(total * 100) / 100).toFixed(2);
     return finalTotal;
   };
-  checkout = cartItems => {
-    var products = cartItems.map(item => {
+  checkout = (cartItems) => {
+    var products = cartItems.map((item) => {
       item.quantity = 0;
       return item;
     });
@@ -129,7 +129,7 @@ export class cart extends Component {
   };
   handleRemoveFromCart = (item, cartItems) => {
     var products = cartItems.filter(
-      cartItems => cartItems.itemId !== item.itemId
+      (cartItems) => cartItems.itemId !== item.itemId
     );
     localStorage.setItem("cartItems", JSON.stringify(products));
 
@@ -154,9 +154,9 @@ export class cart extends Component {
                 <CartItems>
                   <Title>My Cart</Title>
                   <Hr></Hr>
-                  {cartItems.map(item => (
+                  {cartItems.map((item) => (
                     <Item>
-                      <Image src={item.imageUrl} alt="" />
+                      <Image src={item.imageUrl} alt="Product image" />
                       <Details>
                         <span className="cart-price">${item.price}</span>
                         <Delete
@@ -203,13 +203,13 @@ export class cart extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  data: state.data
+const mapStateToProps = (state) => ({
+  data: state.data,
 });
 
 const mapActionsToProps = {
   checkout,
-  removeFromCart
+  removeFromCart,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(cart);

@@ -72,7 +72,7 @@ const StyledLink = styled(Link)`
     transition: border-bottom 0.2s ease-in-out;
   }
 
-  border-bottom: ${props => props.active || "none"};
+  border-bottom: ${(props) => props.active || "none"};
 `;
 const Image = styled.img`
   width: 100%;
@@ -116,7 +116,7 @@ class about extends Component {
               LUXURITY
             </h1>
             <p style={{ display: "inline", width: "100%" }}>Sausalito, CA</p>
-            <Image src={aboutImg}></Image>
+            <Image src={aboutImg} alt="About Luxurity"></Image>
             <Paragraph>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut

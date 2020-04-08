@@ -76,7 +76,7 @@ const StyledLink = styled(Link)`
     transition: border-bottom 0.2s ease-in-out;
   }
 
-  border-bottom: ${props => props.active || "none"};
+  border-bottom: ${(props) => props.active || "none"};
 `;
 const Image = styled.img`
   width: 280px;
@@ -137,7 +137,7 @@ class theteam extends Component {
         <Container>
           {" "}
           <Content>
-            <Image src={teamOne}></Image>
+            <Image src={teamOne} alt="Sharquisha Mika"></Image>
             <Bio>
               <Name className="fancytext">Sharquisha Mika</Name>
               <p>
@@ -150,7 +150,7 @@ class theteam extends Component {
                 sunt in culpa qui officia deserunt mollit anim id est laborum.
               </p>
             </Bio>
-            <Image src={teamTwo}></Image>
+            <Image src={teamTwo} alt="Vivian Tran"></Image>
             <Bio style={{ float: "left" }}>
               <Name className="fancytext">Vivian Tran</Name>
               <p>
@@ -163,7 +163,7 @@ class theteam extends Component {
                 sunt in culpa qui officia deserunt mollit anim id est laborum.
               </p>
             </Bio>
-            <Image src={teamThree}></Image>
+            <Image src={teamThree} alt="Mariam Welster"></Image>
             <Bio>
               <Name className="fancytext">Mariam Welster</Name>
               <p>

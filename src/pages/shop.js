@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+import "../script.js";
+
 import { Link } from "react-router-dom";
 
 import StaticNavbar from "../components/layout/StaticNavbar";
@@ -22,21 +24,24 @@ const Container = styled.section`
     padding-top: 50px;
   }
 `;
-const SideMenu = styled.div`
+const SideMenu = styled.aside`
   width: 300px;
-  height: 100%;
+  min-height: 100vh;
   box-shadow: 0 0 0.2em #ccc;
   background: #fff;
-  padding: 1em 4em;
+  padding: 2em 3em;
 `;
-const Subtitle = styled.p`
+const Subtitle = styled.button`
   font-weight: bold;
   text-transform: uppercase;
-  margin-top: 1em;
+  margin: 0.75em 0;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
 `;
 const Expand = styled.span`
   float: right;
-  cursor: pointer;
   font-size: 0.9em;
 `;
 
@@ -47,6 +52,10 @@ const Label = styled.label`
   color: #777;
   font-size: 0.9em;
   margin-left: 0.5em;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 const Form = styled.form`
   transition: height 0.5s ease-in-out;
@@ -65,25 +74,47 @@ const ItemWrapper = styled(Link)`
   }
 `;
 
-/*function expand() {
-  const currentElem = this;
-  const closestForm = currentElem.closest("form");
-  closestForm.classList.toggle("reveal");
-}*/
-
 class shop extends Component {
+  constructor() {
+    super();
+    this.state = {
+      filteredItems: [],
+    };
+  }
+
   componentDidMount() {
     window.scrollTo(0, 0);
     this.props.getAllItems();
 
-    var accItem = document.getElementsByClassName("accordionItem");
-    var accHD = document.getElementsByClassName("accordionItemHeading");
+    var acc = document.getElementsByClassName("accordionItem");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.height) {
+          panel.style.height = null;
+        } else {
+          panel.style.height = panel.scrollHeight + "px";
+        }
+
+        var expand = this.children[0];
+        if (this.classList.contains("active")) {
+          var newEl = expand;
+          expand.innerHTML = "<i class='fas fa-minus'></i>";
+          expand.parentNode.replaceChild(expand, newEl);
+        } else {
+          expand.innerHTML = "<i class='fas fa-plus'></i>";
+        }
+      });
+    }
   }
 
   render() {
     const { items, loading } = this.props.data;
     let itemsMarkup = !loading ? (
-      items.map(item => (
+      items.map((item) => (
         <ItemWrapper to={`/items/${item.itemId}`}>
           <Item key={item.itemId} item={item} />
         </ItemWrapper>
@@ -91,34 +122,35 @@ class shop extends Component {
     ) : (
       <ItemSkeleton />
     );
+
     return (
       <div>
         <StaticNavbar />
         <Container>
           <SideMenu>
-            <Subtitle>
+            <h5 style={{ letterSpacing: "2px" }}>FILTER ITEMS</h5>
+            <Subtitle className="accordionItem">
               Style{" "}
-              <Expand className="accordionItem">
+              <Expand>
                 <i className="fas fa-plus"></i>
               </Expand>
             </Subtitle>
-
-            <Form>
+            <Form className="panel">
               <Input
                 type="radio"
                 id="casual"
-                name="style"
+                name="styles"
                 value="casual"
               ></Input>
               <Label for="casual">Casual</Label>
               <br />
-              <Input type="radio" id="sexy" name="style" value="sexy"></Input>
+              <Input type="radio" id="sexy" name="styles" value="sexy"></Input>
               <Label for="sexy">Sexy</Label>
               <br />
               <Input
                 type="radio"
                 id="wedding"
-                name="style"
+                name="styles"
                 value="wedding"
               ></Input>
               <Label for="wedding">Wedding</Label>
@@ -126,21 +158,22 @@ class shop extends Component {
               <Input
                 type="radio"
                 id="elegant"
-                name="style"
+                name="styles"
                 value="elegant"
               ></Input>
               <Label for="elegant">Elegant</Label>
               <br />
-              <Input type="radio" id="cute" name="style" value="cute"></Input>
+              <Input type="radio" id="cute" name="styles" value="cute"></Input>
               <Label for="cute">Cute</Label>
             </Form>
-            <Subtitle>
+
+            <Subtitle className="accordionItem">
               Color{" "}
-              <Expand className="accordionItem">
+              <Expand>
                 <i className="fas fa-plus"></i>
               </Expand>
             </Subtitle>
-            <Form>
+            <Form className="panel">
               <Input type="radio" id="white" name="color" value="white"></Input>
               <Label for="white">White</Label>
               <br />
@@ -189,39 +222,14 @@ class shop extends Component {
               <Input type="radio" id="beige" name="color" value="beige"></Input>
               <Label for="beige">Beige</Label>
             </Form>
-            <Subtitle>
-              Size{" "}
-              <Expand className="accordionItem">
-                <i className="fas fa-plus"></i>
-              </Expand>
-            </Subtitle>
-            <Form>
-              <Input type="checkbox" id="xs" name="size" value="xs"></Input>
-              <Label for="xs">XS</Label>
-              <br />
-              <Input type="checkbox" id="s" name="size" value="s"></Input>
-              <Label for="s">S</Label>
-              <br />
-              <Input type="checkbox" id="m" name="size" value="m"></Input>
-              <Label for="m">M</Label>
-              <br />
-              <Input type="checkbox" id="l" name="size" value="l"></Input>
-              <Label for="l">L</Label>
-              <br />
-              <Input type="checkbox" id="xl" name="size" value="xl"></Input>
-              <Label for="xl">XL</Label>
-              <br />
-              <Input type="checkbox" id="xxl" name="size" value="xxl"></Input>
-              <Label for="xxl">XXL</Label>
-              <br />
-            </Form>
-            <Subtitle>
+
+            <Subtitle className="accordionItem">
               Neckline{" "}
-              <Expand className="accordionItem">
+              <Expand>
                 <i className="fas fa-plus"></i>
               </Expand>
             </Subtitle>
-            <Form>
+            <Form className="panel">
               <Input
                 type="radio"
                 id="round"
@@ -264,6 +272,14 @@ class shop extends Component {
                 value="offshoulder"
               ></Input>
               <Label for="offshoulder">Off-shoulder</Label>
+              <br />{" "}
+              <Input
+                type="radio"
+                id="bateau"
+                name="neckline"
+                value="bateau"
+              ></Input>
+              <Label for="bateau">Bateau</Label>
               <br />
             </Form>
           </SideMenu>
@@ -275,8 +291,13 @@ class shop extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  data: state.data
+const mapStateToProps = (state) => ({
+  data: state.data,
 });
 
-export default connect(mapStateToProps, { getAllItems, getItem })(shop);
+const mapActionsToProps = {
+  getAllItems,
+  getItem,
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(shop);

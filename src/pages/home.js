@@ -167,24 +167,28 @@ class home extends Component {
             style={{
               width: "100%",
               textAlign: "center",
-              marginTop: "25px"
+              marginTop: "25px",
             }}
           >
-            <Image src={featured_white}></Image>
-            <Image src={featured_purple}></Image>
-            <Image src={featured_peach}></Image>
+            <Image src={featured_white} alt="Featured white dress"></Image>
+            <Image src={featured_purple} alt="Featured purple dress"></Image>
+            <Image src={featured_peach} alt="Featured peach dress"></Image>
           </div>
           <Button to="/shop">View More ></Button>
         </Featured>
         <Info className="flex flex-wrap">
-          <ImageBox src={info_left} className="image-box"></ImageBox>
+          <ImageBox
+            src={info_left}
+            className="image-box"
+            alt="Info image left"
+          ></ImageBox>
           <TextBox className="flex text-box">
             <div style={{ width: "60%", color: "#555" }}>
               <p
                 style={{
                   color: "#af9e73",
                   fontSize: "4em",
-                  height: "1.2em"
+                  height: "1.2em",
                 }}
                 className="fancytext text-title"
               >
@@ -201,7 +205,7 @@ class home extends Component {
                   color: "#af9e73",
                   fontSize: "4em",
 
-                  height: "1.2em"
+                  height: "1.2em",
                 }}
                 className="fancytext text-title"
               >
@@ -211,7 +215,11 @@ class home extends Component {
               finest materials are used to create dresses perfect for you.
             </div>
           </TextBox>
-          <ImageBox src={info_right} className="image-box"></ImageBox>
+          <ImageBox
+            src={info_right}
+            className="image-box"
+            alt="Info image right"
+          ></ImageBox>
         </Info>
         <Subscribe>
           <Container className="flex">

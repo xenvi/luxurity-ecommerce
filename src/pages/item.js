@@ -11,13 +11,15 @@ import { getItem } from "../redux/actions/dataActions";
 
 const Container = styled.section`
   min-height: 80vh;
+  padding: 3em 0 0 0;
+  align-items: flex-start;
   @media only screen and (max-width: 800px) {
     padding-top: 50px;
   }
 `;
 const Image = styled.img`
   width: auto;
-  height: 700px;
+  height: 600px;
   @media only screen and (max-width: 800px) {
     width: 70%;
     height: auto;
@@ -27,7 +29,7 @@ const Image = styled.img`
 const Details = styled.div`
   width: 500px;
   height: 700px;
-  padding: 2em;
+  padding: 1em 2em;
   @media only screen and (max-width: 800px) {
     height: auto;
   }
@@ -71,7 +73,7 @@ const SizeTitle = styled.span`
 export class item extends Component {
   state = {
     item: null,
-    itemIdParam: null
+    itemIdParam: null,
   };
   componentDidMount() {
     const itemId = this.props.match.params.itemId;
@@ -80,25 +82,25 @@ export class item extends Component {
     this.props.getItem(itemId);
     axios
       .get(`/items/${itemId}`)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          item: res.data.items
+          item: res.data.items,
         });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   render() {
     const {
       data: {
-        item: { title, imageUrl, price, style, color, neckline }
-      }
+        item: { title, imageUrl, price, style, color, neckline },
+      },
     } = this.props;
     return (
       <div>
         <StaticNavbar />
         <Container className="flex flex-wrap">
-          <Image src={imageUrl}></Image>
+          <Image src={imageUrl} alt="Product image"></Image>
           <Details>
             <Title>{title}</Title>
             <Price>${price}</Price>
@@ -156,12 +158,12 @@ export class item extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  data: state.data
+const mapStateToProps = (state) => ({
+  data: state.data,
 });
 
 const mapActionToProps = {
-  getItem
+  getItem,
 };
 
 export default connect(mapStateToProps, mapActionToProps)(item);

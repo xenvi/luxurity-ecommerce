@@ -162,7 +162,7 @@ class StaticNavbar extends Component {
     super(props);
     this.state = {
       width: 0,
-      height: 0
+      height: 0,
     };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
@@ -179,7 +179,7 @@ class StaticNavbar extends Component {
   updateWindowDimensions = () => {
     this.setState({
       width: window.innerWidth,
-      height: window.innerHeight
+      height: window.innerHeight,
     });
   };
 
@@ -188,7 +188,7 @@ class StaticNavbar extends Component {
     dropdown.classList.toggle("reveal");
   };
 
-  logoutUser = e => {
+  logoutUser = (e) => {
     e.preventDefault();
     this.props.logoutUser();
   };
@@ -206,9 +206,9 @@ class StaticNavbar extends Component {
     const {
       user: {
         authenticated,
-        credentials: { handle }
+        credentials: { handle },
       },
-      data: { cartItems }
+      data: { cartItems },
     } = this.props;
     const totalItems = cartItems.length;
 
@@ -247,7 +247,7 @@ class StaticNavbar extends Component {
             </li>
             <li>
               <StyledLink2 to="/cart">
-                <i class="fas fa-shopping-cart"></i>
+                <i className="fas fa-shopping-cart"></i>
                 <ItemCount>{totalItems}</ItemCount>
               </StyledLink2>
             </li>
@@ -276,7 +276,7 @@ class StaticNavbar extends Component {
             <ul className="menu">
               <li>
                 <StyledLink2 to="/cart">
-                  <i class="fas fa-shopping-cart mobile-icon"></i>
+                  <i className="fas fa-shopping-cart mobile-icon"></i>
                   <ItemCount>{totalItems}</ItemCount>
                 </StyledLink2>
               </li>
@@ -286,7 +286,7 @@ class StaticNavbar extends Component {
             {" "}
             <ul className="mobilemenu">
               <Close onClick={this.toggleNav}>
-                <i class="fas fa-times"></i>
+                <i className="fas fa-times"></i>
               </Close>
               <li>
                 <StyledLink to="/">HOME</StyledLink>
@@ -325,13 +325,13 @@ class StaticNavbar extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.user,
-  data: state.data
+  data: state.data,
 });
 
 const mapActionsToProps = {
-  logoutUser
+  logoutUser,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(StaticNavbar);

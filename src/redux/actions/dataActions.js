@@ -9,81 +9,81 @@ import {
   RESET_COUNT,
   ADD_TO_CART,
   REMOVE_FROM_CART,
-  CHECKOUT
+  CHECKOUT,
 } from "../types";
 
 import axios from "axios";
 
-export const incrementCount = itemId => dispatch => {
+export const incrementCount = (itemId) => (dispatch) => {
   dispatch({ type: INCREMENT_COUNT, payload: itemId });
 };
-export const decrementCount = () => dispatch => {
+export const decrementCount = () => (dispatch) => {
   dispatch({ type: DECREMENT_COUNT });
 };
-export const resetCount = () => dispatch => {
+export const resetCount = () => (dispatch) => {
   dispatch({ type: RESET_COUNT });
 };
-export const addToCart = item => dispatch => {
+export const addToCart = (item) => (dispatch) => {
   dispatch({ type: LOADING_DATA });
   localStorage.setItem("cartItems", JSON.stringify(item));
   dispatch({
     type: ADD_TO_CART,
-    payload: item
+    payload: item,
   });
 };
-export const removeFromCart = item => dispatch => {
+export const removeFromCart = (item) => (dispatch) => {
   dispatch({
     type: REMOVE_FROM_CART,
-    payload: item.itemId
+    payload: item.itemId,
   });
 };
-export const checkout = () => dispatch => {
+export const checkout = () => (dispatch) => {
   dispatch({ type: CHECKOUT });
 };
 
-export const getAllItems = () => dispatch => {
+export const getAllItems = () => (dispatch) => {
   dispatch({ type: LOADING_DATA });
   axios
     .get("/items")
-    .then(res => {
+    .then((res) => {
       dispatch({
         type: SET_ITEMS,
-        payload: res.data
+        payload: res.data,
       });
     })
-    .catch(err => console.error(err));
+    .catch((err) => console.error(err));
 };
 
-export const getItem = itemId => dispatch => {
+export const getItem = (itemId) => (dispatch) => {
   dispatch({ type: LOADING_DATA });
-  axios.get(`/items/${itemId}`).then(res => {
+  axios.get(`/items/${itemId}`).then((res) => {
     dispatch({
       type: SET_ITEM,
-      payload: res.data
+      payload: res.data,
     });
   });
 };
 
-export const createItem = newItem => dispatch => {
+export const createItem = (newItem) => (dispatch) => {
   axios
     .post("/item", newItem)
-    .then(res => {
+    .then((res) => {
       dispatch({
         type: CREATE_ITEM,
-        payload: res.data
+        payload: res.data,
       });
     })
-    .catch(err => console.error(err));
+    .catch((err) => console.error(err));
 };
 
-export const deleteItem = itemId => dispatch => {
+export const deleteItem = (itemId) => (dispatch) => {
   axios
     .delete(`/item/${itemId}`)
     .then(() => {
       dispatch({
         type: DELETE_ITEM,
-        payload: itemId
+        payload: itemId,
       });
     })
-    .catch(err => console.error(err));
+    .catch((err) => console.error(err));
 };
