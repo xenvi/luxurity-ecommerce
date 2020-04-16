@@ -115,15 +115,26 @@ const Button = styled(Link)`
   }
 `;
 
-const ImageBox = styled.img`
+const ImageBox = styled.div`
   width: 50%;
-  height: 550px;
+  max-height: 550px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+`;
+const ImageInBox = styled.img`
+  height: auto;
+  width: 100%;
   user-drag: none;
   user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 `;
 const TextBox = styled.div`
   width: 50%;
-  height: 550px;
+  max-height: 550px;
   background: none;
   font-size: 1.4em;
   padding-bottom: 1em;
@@ -177,11 +188,9 @@ class home extends Component {
           <Button to="/shop">View More ></Button>
         </Featured>
         <Info className="flex flex-wrap">
-          <ImageBox
-            src={info_left}
-            className="image-box"
-            alt="Info image left"
-          ></ImageBox>
+          <ImageBox className="image-box" alt="Info image left">
+            <ImageInBox src={info_left} />
+          </ImageBox>
           <TextBox className="flex text-box">
             <div style={{ width: "60%", color: "#555" }}>
               <p
@@ -215,11 +224,9 @@ class home extends Component {
               finest materials are used to create dresses perfect for you.
             </div>
           </TextBox>
-          <ImageBox
-            src={info_right}
-            className="image-box"
-            alt="Info image right"
-          ></ImageBox>
+          <ImageBox className="image-box" alt="Info image right">
+            <ImageInBox src={info_right} />
+          </ImageBox>
         </Info>
         <Subscribe>
           <Container className="flex">

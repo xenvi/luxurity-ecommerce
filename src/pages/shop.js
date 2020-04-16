@@ -11,7 +11,12 @@ import Item from "../components/items/Item";
 import ItemSkeleton from "../components/items/ItemSkeleton";
 
 import { connect } from "react-redux";
-import { getAllItems, getItem } from "../redux/actions/dataActions";
+import {
+  getAllItems,
+  getItem,
+  filterItems,
+  resetFilterItems,
+} from "../redux/actions/dataActions";
 
 const Container = styled.section`
   width: 100%;
@@ -23,6 +28,9 @@ const Container = styled.section`
   @media only screen and (max-width: 800px) {
     padding-top: 50px;
   }
+  @media only screen and (max-width: 600px) {
+    flex-wrap: wrap;
+  }
 `;
 const SideMenu = styled.aside`
   width: 300px;
@@ -30,6 +38,10 @@ const SideMenu = styled.aside`
   box-shadow: 0 0 0.2em #ccc;
   background: #fff;
   padding: 2em 3em;
+
+  @media only screen and (max-width: 800px) {
+    padding: 2em 1.5em;
+  }
 `;
 const Subtitle = styled.button`
   font-weight: bold;
@@ -67,10 +79,49 @@ const Listings = styled.div`
   float: left;
   padding: 2em;
   width: 100%;
+
+  @media only screen and (max-width: 800px) {
+    justify-content: center;
+  }
 `;
 const ItemWrapper = styled(Link)`
   &:hover {
     text-decoration: none;
+  }
+`;
+const ResetButton = styled.input`
+  width: 100%;
+  padding: 0.3em 0;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  background: #69614c;
+  color: #fff;
+  border: none;
+  margin-bottom: 1em;
+
+  transition: background 0.2s ease-out;
+
+  &:hover {
+    background: #af9e73;
+    transition: background 0.2s ease-in;
+  }
+`;
+
+const MobileSideMenu = styled.div`
+  background: #fff;
+  width: 100%;
+  height: 50px;
+  padding-top: 10px;
+  text-align: center;
+  box-shadow: 0 0 0.2em #ccc;
+`;
+
+const FilterButton = styled.h5`
+  letter-spacing: 2px;
+  font-weight: bold;
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 
@@ -78,7 +129,9 @@ class shop extends Component {
   constructor() {
     super();
     this.state = {
-      filteredItems: [],
+      styles: [],
+      color: [],
+      neckline: [],
     };
   }
 
@@ -111,10 +164,57 @@ class shop extends Component {
     }
   }
 
+  handleFilter = (e, filterName) => {
+    const value = e.target.value;
+
+    this.setState(
+      (prevState) => ({
+        ...prevState,
+        [filterName]: [value],
+      }),
+      function () {
+        this.multiPropsFilter(this.props.data.items, this.state);
+      }
+    );
+  };
+
+  multiPropsFilter = (items, filters) => {
+    const getValue = (value) =>
+      typeof value === "string" ? value.toUpperCase() : value;
+    const filterKeys = Object.keys(filters);
+
+    const filteredItems = items.filter((item) => {
+      return filterKeys.every((key) => {
+        if (!filters[key].length) return true;
+
+        return filters[key].find(
+          (filter) => getValue(filter) === getValue(item[key])
+        );
+      });
+    });
+
+    this.props.filterItems(filteredItems);
+  };
+
+  resetFilters = (items) => {
+    var radioButton = document.getElementsByTagName("input");
+    for (let i = 0; i < radioButton.length; i++) {
+      if (radioButton[i].type === "radio") {
+        radioButton[i].checked = false;
+      }
+    }
+    this.props.resetFilterItems(items);
+  };
+
+  openFilter = () => {
+    var filter = document.querySelector(".sidebar");
+    filter.classList.toggle("slidein");
+  };
+
   render() {
-    const { items, loading } = this.props.data;
-    let itemsMarkup = !loading ? (
-      items.map((item) => (
+    const { items, loading, filteredItems } = this.props.data;
+    let filteredItemsMarkup = !loading ? (
+      filteredItems.map((item) => (
         <ItemWrapper to={`/items/${item.itemId}`}>
           <Item key={item.itemId} item={item} />
         </ItemWrapper>
@@ -127,8 +227,18 @@ class shop extends Component {
       <div>
         <StaticNavbar />
         <Container>
-          <SideMenu>
-            <h5 style={{ letterSpacing: "2px" }}>FILTER ITEMS</h5>
+          <MobileSideMenu className="mobile_sidebar">
+            <FilterButton onClick={() => this.openFilter()}>
+              FILTER
+            </FilterButton>
+          </MobileSideMenu>
+          <SideMenu className="sidebar">
+            <FilterButton>FILTER</FilterButton>{" "}
+            <ResetButton
+              type="reset"
+              value="Reset All"
+              onClick={() => this.resetFilters(items)}
+            />
             <Subtitle className="accordionItem">
               Style{" "}
               <Expand>
@@ -141,10 +251,17 @@ class shop extends Component {
                 id="casual"
                 name="styles"
                 value="casual"
+                onChange={(e) => this.handleFilter(e, "styles")}
               ></Input>
               <Label for="casual">Casual</Label>
               <br />
-              <Input type="radio" id="sexy" name="styles" value="sexy"></Input>
+              <Input
+                type="radio"
+                id="sexy"
+                name="styles"
+                value="sexy"
+                onChange={(e) => this.handleFilter(e, "styles")}
+              ></Input>
               <Label for="sexy">Sexy</Label>
               <br />
               <Input
@@ -152,6 +269,7 @@ class shop extends Component {
                 id="wedding"
                 name="styles"
                 value="wedding"
+                onChange={(e) => this.handleFilter(e, "styles")}
               ></Input>
               <Label for="wedding">Wedding</Label>
               <br />
@@ -160,13 +278,19 @@ class shop extends Component {
                 id="elegant"
                 name="styles"
                 value="elegant"
+                onChange={(e) => this.handleFilter(e, "styles")}
               ></Input>
               <Label for="elegant">Elegant</Label>
               <br />
-              <Input type="radio" id="cute" name="styles" value="cute"></Input>
+              <Input
+                type="radio"
+                id="cute"
+                name="styles"
+                value="cute"
+                onChange={(e) => this.handleFilter(e, "styles")}
+              ></Input>
               <Label for="cute">Cute</Label>
             </Form>
-
             <Subtitle className="accordionItem">
               Color{" "}
               <Expand>
@@ -174,10 +298,22 @@ class shop extends Component {
               </Expand>
             </Subtitle>
             <Form className="panel">
-              <Input type="radio" id="white" name="color" value="white"></Input>
+              <Input
+                type="radio"
+                id="white"
+                name="color"
+                value="white"
+                onChange={(e) => this.handleFilter(e, "color")}
+              ></Input>
               <Label for="white">White</Label>
               <br />
-              <Input type="radio" id="black" name="color" value="black"></Input>
+              <Input
+                type="radio"
+                id="black"
+                name="color"
+                value="black"
+                onChange={(e) => this.handleFilter(e, "color")}
+              ></Input>
               <Label for="black">Black</Label>
               <br />
               <Input
@@ -185,10 +321,17 @@ class shop extends Component {
                 id="multicolor"
                 name="color"
                 value="multicolor"
+                onChange={(e) => this.handleFilter(e, "color")}
               ></Input>
               <Label for="multicolor">Multicolor</Label>
               <br />
-              <Input type="radio" id="red" name="color" value="red"></Input>
+              <Input
+                type="radio"
+                id="red"
+                name="color"
+                value="red"
+                onChange={(e) => this.handleFilter(e, "color")}
+              ></Input>
               <Label for="red">Red</Label>
               <br />
               <Input
@@ -196,13 +339,26 @@ class shop extends Component {
                 id="yellow"
                 name="color"
                 value="yellow"
+                onChange={(e) => this.handleFilter(e, "color")}
               ></Input>
               <Label for="yellow">Yellow</Label>
               <br />
-              <Input type="radio" id="green" name="color" value="green"></Input>
+              <Input
+                type="radio"
+                id="green"
+                name="color"
+                value="green"
+                onChange={(e) => this.handleFilter(e, "color")}
+              ></Input>
               <Label for="green">Green</Label>
               <br />
-              <Input type="radio" id="blue" name="color" value="blue"></Input>
+              <Input
+                type="radio"
+                id="blue"
+                name="color"
+                value="blue"
+                onChange={(e) => this.handleFilter(e, "color")}
+              ></Input>
               <Label for="blue">Blue</Label>
               <br />
               <Input
@@ -210,19 +366,37 @@ class shop extends Component {
                 id="purple"
                 name="color"
                 value="purple"
+                onChange={(e) => this.handleFilter(e, "color")}
               ></Input>
               <Label for="purple">Purple</Label>
               <br />
-              <Input type="radio" id="pink" name="color" value="pink"></Input>
+              <Input
+                type="radio"
+                id="pink"
+                name="color"
+                value="pink"
+                onChange={(e) => this.handleFilter(e, "color")}
+              ></Input>
               <Label for="pink">Pink</Label>
               <br />
-              <Input type="radio" id="brown" name="color" value="brown"></Input>
+              <Input
+                type="radio"
+                id="brown"
+                name="color"
+                value="brown"
+                onChange={(e) => this.handleFilter(e, "color")}
+              ></Input>
               <Label for="brown">Brown</Label>
               <br />
-              <Input type="radio" id="beige" name="color" value="beige"></Input>
+              <Input
+                type="radio"
+                id="beige"
+                name="color"
+                value="beige"
+                onChange={(e) => this.handleFilter(e, "color")}
+              ></Input>
               <Label for="beige">Beige</Label>
             </Form>
-
             <Subtitle className="accordionItem">
               Neckline{" "}
               <Expand>
@@ -235,6 +409,7 @@ class shop extends Component {
                 id="round"
                 name="neckline"
                 value="round"
+                onChange={(e) => this.handleFilter(e, "neckline")}
               ></Input>
               <Label for="round">Round Neck</Label>
               <br />
@@ -243,10 +418,17 @@ class shop extends Component {
                 id="spaghetti"
                 name="neckline"
                 value="spaghetti"
+                onChange={(e) => this.handleFilter(e, "neckline")}
               ></Input>
               <Label for="spaghetti">Spaghetti Strap</Label>
               <br />
-              <Input type="radio" id="one" name="neckline" value="one"></Input>
+              <Input
+                type="radio"
+                id="one"
+                name="neckline"
+                value="one"
+                onChange={(e) => this.handleFilter(e, "neckline")}
+              ></Input>
               <Label for="one">One Shoulder</Label>
               <br />
               <Input
@@ -254,6 +436,7 @@ class shop extends Component {
                 id="vneck"
                 name="neckline"
                 value="vneck"
+                onChange={(e) => this.handleFilter(e, "neckline")}
               ></Input>
               <Label for="vneck">V Neck</Label>
               <br />
@@ -262,6 +445,7 @@ class shop extends Component {
                 id="sweetheart"
                 name="neckline"
                 value="sweetheart"
+                onChange={(e) => this.handleFilter(e, "neckline")}
               ></Input>
               <Label for="sweetheart">Sweetheart</Label>
               <br />
@@ -270,6 +454,7 @@ class shop extends Component {
                 id="offshoulder"
                 name="neckline"
                 value="offshoulder"
+                onChange={(e) => this.handleFilter(e, "neckline")}
               ></Input>
               <Label for="offshoulder">Off-shoulder</Label>
               <br />{" "}
@@ -278,12 +463,17 @@ class shop extends Component {
                 id="bateau"
                 name="neckline"
                 value="bateau"
+                onChange={(e) => this.handleFilter(e, "neckline")}
               ></Input>
               <Label for="bateau">Bateau</Label>
               <br />
             </Form>
           </SideMenu>
-          <Listings>{itemsMarkup}</Listings>
+          <Listings>
+            {filteredItems.length === 0
+              ? "No matches found."
+              : filteredItemsMarkup}
+          </Listings>
         </Container>
         <Footer />
       </div>
@@ -298,6 +488,8 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = {
   getAllItems,
   getItem,
+  filterItems,
+  resetFilterItems,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(shop);

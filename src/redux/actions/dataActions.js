@@ -10,6 +10,8 @@ import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   CHECKOUT,
+  FILTER_ITEMS,
+  RESET_FILTER_ITEMS,
 } from "../types";
 
 import axios from "axios";
@@ -39,6 +41,18 @@ export const removeFromCart = (item) => (dispatch) => {
 };
 export const checkout = () => (dispatch) => {
   dispatch({ type: CHECKOUT });
+};
+export const filterItems = (filteredItems) => (dispatch) => {
+  dispatch({
+    type: FILTER_ITEMS,
+    payload: filteredItems,
+  });
+};
+export const resetFilterItems = (items) => (dispatch) => {
+  dispatch({
+    type: RESET_FILTER_ITEMS,
+    payload: items,
+  });
 };
 
 export const getAllItems = () => (dispatch) => {

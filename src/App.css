@@ -76,12 +76,14 @@ html {
   transition: all 1s ease-in-out;
 }
 
-/* accordion */
-
+/* shop page */
 .panel {
   height: 0;
   overflow: hidden;
   transition: height 0.1s ease-out;
+}
+.mobile_sidebar {
+  display: none;
 }
 
 /* home */
@@ -372,7 +374,16 @@ button:focus {
   .subscribe-text {
     font-size: 1em !important;
   }
-  input {
-    width: 90% !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .sidebar {
+    position: absolute;
+    margin-top: 50px;
+    left: -100vw;
+    transition: left 1s ease-in-out;
+  }
+  .mobile_sidebar {
+    display: block;
   }
 }

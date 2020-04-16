@@ -10,6 +10,8 @@ import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   CHECKOUT,
+  FILTER_ITEMS,
+  RESET_FILTER_ITEMS,
 } from "../types";
 
 const initialState = {
@@ -32,6 +34,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         items: action.payload,
+        filteredItems: action.payload,
         loading: false,
       };
     case LOADING_DATA:
@@ -94,6 +97,16 @@ export default function (state = initialState, action) {
       return {
         ...state,
         cartItems: [],
+      };
+    case FILTER_ITEMS:
+      return {
+        ...state,
+        filteredItems: action.payload,
+      };
+    case RESET_FILTER_ITEMS:
+      return {
+        ...state,
+        filteredItems: action.payload,
       };
     default:
       return state;

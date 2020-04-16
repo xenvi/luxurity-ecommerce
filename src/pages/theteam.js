@@ -137,9 +137,9 @@ class theteam extends Component {
         <Container>
           {" "}
           <Content>
-            <Image src={teamOne} alt="Sharquisha Mika"></Image>
+            <Image src={teamOne} alt="Bianca Mille"></Image>
             <Bio>
-              <Name className="fancytext">Sharquisha Mika</Name>
+              <Name className="fancytext">Bianca Miller</Name>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
