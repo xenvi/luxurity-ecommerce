@@ -49,6 +49,7 @@ export const signinUserSocial = (userData, history) => (dispatch) => {
     type: SET_USER,
     payload: userData,
   });
+  history.push("/");
 };
 
 export const logoutUser = () => (dispatch) => {

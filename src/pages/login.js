@@ -187,7 +187,6 @@ class login extends Component {
           },
         };
         console.log(result);
-        this.props.signinUserSocial(userData, this.props.history);
       })
       .catch((error) => {
         console.log(error);
