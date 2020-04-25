@@ -194,6 +194,7 @@ class StaticNavbar extends Component {
   logoutUser = (e) => {
     e.preventDefault();
     fire.auth().signOut();
+
     this.props.logoutUser();
     window.location.href = "/";
   };

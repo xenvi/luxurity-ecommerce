@@ -186,6 +186,7 @@ class login extends Component {
             userId: result.credential.idToken,
           },
         };
+        console.log(result);
         this.props.signinUserSocial(userData, this.props.history);
       })
       .catch((error) => {
