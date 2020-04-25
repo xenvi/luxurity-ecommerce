@@ -6,6 +6,9 @@ import { connect } from "react-redux";
 
 import { logoutUser } from "../../redux/actions/userActions";
 
+//firebase
+import fire from "../../firebase.js";
+
 const Nav = styled.nav`
   width: 100%;
   height: 75px;
@@ -84,7 +87,7 @@ const Profile = styled.span`
   }
 `;
 
-const Dropdown = styled.li`
+const Dropdown = styled.p`
   opacity: 0;
   pointer-events: none;
   color: #af9e73;
@@ -190,6 +193,7 @@ class StaticNavbar extends Component {
 
   logoutUser = (e) => {
     e.preventDefault();
+    fire.auth().signOut();
     this.props.logoutUser();
   };
 

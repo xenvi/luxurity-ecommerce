@@ -6,6 +6,9 @@ import { connect } from "react-redux";
 
 import { logoutUser } from "../../redux/actions/userActions";
 
+//firebase
+import fire from "../../firebase.js";
+
 const Nav = styled.nav`
   position: fixed;
   width: 100%;
@@ -94,7 +97,7 @@ const Profile = styled.span`
   }
 `;
 
-const Dropdown = styled.li`
+const Dropdown = styled.p`
   opacity: 0;
   pointer-events: none;
   color: #af9e73;
@@ -212,6 +215,7 @@ class Navbar extends Component {
 
   logoutUser = (e) => {
     e.preventDefault();
+    fire.auth().signOut();
     this.props.logoutUser();
   };
 
@@ -269,12 +273,12 @@ class Navbar extends Component {
             </li>
             <li>
               <StyledLink2 to="/cart">
-                <i class="fas fa-shopping-cart"></i>
+                <i className="fas fa-shopping-cart"></i>
                 <ItemCount>{totalItems}</ItemCount>
               </StyledLink2>
             </li>
             <li>
-              <i class="fas fa-search"></i>
+              <i className="fas fa-search"></i>
             </li>
           </ul>
         </Nav>
@@ -298,7 +302,7 @@ class Navbar extends Component {
             <ul className="menu">
               <li>
                 <StyledLink2 to="/cart">
-                  <i class="fas fa-shopping-cart mobile-icon"></i>
+                  <i className="fas fa-shopping-cart mobile-icon"></i>
                   <ItemCount>{totalItems}</ItemCount>
                 </StyledLink2>
               </li>
@@ -308,7 +312,7 @@ class Navbar extends Component {
             {" "}
             <ul className="mobilemenu">
               <Close onClick={this.toggleNav}>
-                <i class="fas fa-times"></i>
+                <i className="fas fa-times"></i>
               </Close>
               <li>
                 <StyledLink to="/">HOME</StyledLink>

@@ -9,7 +9,11 @@ import facebookIcon from "../images/facebookIcon.png";
 
 // redux imports
 import { connect } from "react-redux";
-import { signupUser } from "../redux/actions/userActions";
+import { signupUser, signinUserSocial } from "../redux/actions/userActions";
+
+//firebase
+import fire from "../firebase.js";
+import firebase from "firebase/app";
 
 const Container = styled.section`
   width: 100%;
@@ -132,7 +136,7 @@ class signup extends Component {
       password: "",
       confirmPassword: "",
       handle: "",
-      errors: {}
+      errors: {},
     };
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -140,26 +144,66 @@ class signup extends Component {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const newUserData = {
       email: this.state.email,
       password: this.state.password,
       confirmPassword: this.state.confirmPassword,
-      handle: this.state.handle
+      handle: this.state.handle,
     };
     this.props.signupUser(newUserData, this.props.history);
   };
 
-  handleChange = e => {
+  googleSignIn = () => {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    return fire
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        const userData = {
+          credentials: {
+            email: result.user.email,
+            handle: result.user.displayName,
+            userId: result.credential.idToken,
+          },
+        };
+        this.props.signinUserSocial(userData, this.props.history);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  facebookSignIn = () => {
+    var provider = new firebase.auth.FacebookAuthProvider();
+    return fire
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        const userData = {
+          credentials: {
+            email: result.user.email,
+            handle: result.user.displayName,
+            userId: result.credential.idToken,
+          },
+        };
+        this.props.signinUserSocial(userData, this.props.history);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  handleChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   render() {
     const {
-      UI: { loading }
+      UI: { loading },
     } = this.props;
     const { errors } = this.state;
     return (
@@ -168,7 +212,7 @@ class signup extends Component {
           background: "#f3f3f3",
           textAlign: "center",
           minHeight: "100vh",
-          height: "100%"
+          height: "100%",
         }}
       >
         <Brand to="/" className="fancytext">
@@ -249,11 +293,14 @@ class signup extends Component {
               >
                 OR SIGN UP WITH ...
               </p>
-              <Button2>
+              <Button2 onClick={this.googleSignIn}>
                 <img src={googleIcon} alt="Login with Google" />{" "}
                 <span style={{ marginLeft: "10px" }}>GOOGLE</span>
               </Button2>
-              <Button2 style={{ marginLeft: "5px" }}>
+              <Button2
+                style={{ marginLeft: "5px" }}
+                onClick={this.facebookSignIn}
+              >
                 <img src={facebookIcon} alt="Login with Facebook" />{" "}
                 <span style={{ marginLeft: "10px" }}>FACEBOOK</span>
               </Button2>
@@ -265,8 +312,10 @@ class signup extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  UI: state.UI
+const mapStateToProps = (state) => ({
+  UI: state.UI,
 });
 
-export default connect(mapStateToProps, { signupUser })(signup);
+export default connect(mapStateToProps, { signupUser, signinUserSocial })(
+  signup
+);
