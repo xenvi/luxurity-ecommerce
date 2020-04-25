@@ -195,6 +195,7 @@ class StaticNavbar extends Component {
     e.preventDefault();
     fire.auth().signOut();
     this.props.logoutUser();
+    window.location.href = "/";
   };
 
   toggleNav = () => {
