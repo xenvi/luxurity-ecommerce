@@ -43,6 +43,10 @@ const Copyright = styled.div`
   font-size: 0.8em;
   color: #69614c;
   font-weight: bold;
+
+  a {
+    color: #69614c;
+  }
 `;
 const Column = styled.div`
   padding: 0.5em 1em;
@@ -95,7 +99,10 @@ class Footer extends Component {
               <i className="fab fa-linkedin-in"></i>
             </Links>
           </Column>
-          <Copyright>LUXURITY © 2020</Copyright>
+          <Copyright>
+            LUXURITY © 2020 | DEMO IMAGES:{" "}
+            <a href="https://unsplash.com/">UNSPLASH</a>
+          </Copyright>
         </Container>
       </Wrapper>
     );
