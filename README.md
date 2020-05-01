@@ -16,3 +16,6 @@ TO DO :
 - //Create complete functional e-commerce site//
 - Add size selection to display in cart
 - Improve site load speed
+
+Functions (back-end) repo:
+https://github.com/xenvi/luxurity-functions
