@@ -25,6 +25,15 @@ const Links = styled.ul`
   font-size: 0.8em;
   line-height: 2em;
   opacity: 0.8;
+  color: #fff;
+
+  li {
+    cursor: pointer;
+
+    a {
+      color: #fff;
+    }
+  }
 `;
 const Copyright = styled.div`
   width: 100%;
@@ -34,6 +43,10 @@ const Copyright = styled.div`
   font-size: 0.8em;
   color: #69614c;
   font-weight: bold;
+
+  a {
+    color: #69614c;
+  }
 `;
 const Column = styled.div`
   padding: 0.5em 1em;
@@ -64,8 +77,16 @@ class Footer extends Component {
           <Column>
             <Header>LEGAL</Header>
             <Links>
-              <li>Privacy Policy</li>
-              <li>Terms & Conditions</li>
+              <li>
+                <a href="https://www.privacypolicies.com/privacy/view/483190e905d1381f196c7168b329379e">
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a href="https://www.termsfeed.com/terms-conditions/03ca330a47a1f270a0cd0fe6cb26fd12">
+                  Terms & Conditions
+                </a>
+              </li>
               <li>Refund Policy</li>
             </Links>
           </Column>
@@ -78,7 +99,10 @@ class Footer extends Component {
               <i className="fab fa-linkedin-in"></i>
             </Links>
           </Column>
-          <Copyright>LUXURITY © 2020</Copyright>
+          <Copyright>
+            LUXURITY © 2020 | DEMO IMAGES:{" "}
+            <a href="https://unsplash.com/">UNSPLASH</a>
+          </Copyright>
         </Container>
       </Wrapper>
     );

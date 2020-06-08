@@ -12,6 +12,10 @@ const Landing = styled.section`
   height: 95vh;
   padding: 0 5em;
   align-content: center;
+
+  @media only screen and (max-width: 600px) {
+  background-attachment: scroll;
+  }
 `;
 const LandingText = styled.p`
   width: 100%;

@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "cors": "^2.8.5",
+    "firebase": "^7.14.2",
     "jwt-decode": "^2.2.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

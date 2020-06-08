@@ -65,6 +65,10 @@ const Subscribe = styled.section`
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
+
+  @media only screen and (max-width: 600px) {
+    background-attachment: scroll;
+    }
   `;
 const Container = styled.div`
   background: rgba(0, 0, 0, 0.5);
