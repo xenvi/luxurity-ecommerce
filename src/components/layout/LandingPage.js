@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 
-// image uploads
-//import dress_landing from "../../images/dress_landing.jpg";
+// mp4 uploads
 import dress_landing from "../../dress.mp4";
 
 const Landing = styled.section`
@@ -36,7 +35,7 @@ const LandingButton = styled(Link)`
   transition: all 0.2s ease-in-out;
   z-index: 2;
   letter-spacing: 3px;
-  margin-top: 1em;
+  margin-top: 1.5em;
   &:hover {
     text-decoration: none;
     background: rgba(175, 158, 115, 0.3);
@@ -70,7 +69,7 @@ export class LandingPage extends Component {
     return (
       <Landing className="flex flex-wrap landing_container">
         <VideoWrap>
-          <video src={dress_landing} autoplay="" loop="true" muted />
+          <video src={dress_landing} autoplay="" loop={true} muted />
         </VideoWrap>
         <Overlay />
         <LandingText className="fancytext landingtext">
