@@ -156,7 +156,7 @@ export class cart extends Component {
                   <Hr></Hr>
                   {cartItems.map((item) => (
                     <Item>
-                      <Image src={item.imageUrl} alt="Product image" />
+                      {item.imageUrl && <Image src={item.imageUrl} alt="Product image" />}
                       <Details>
                         <span className="cart-price">${item.price}</span>
                         <Delete
