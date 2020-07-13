@@ -40,7 +40,7 @@ if (token) {
   }
 }
 
-if (localStorage.getItem("cartItems") === null) {
+if (localStorage.getItem("cartItems") !== null) {
   let cartItems = localStorage.getItem("cartItems");
   store.dispatch(addToCart(cartItems));
 } else {
