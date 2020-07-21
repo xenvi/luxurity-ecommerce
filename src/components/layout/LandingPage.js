@@ -53,8 +53,8 @@ const VideoWrap = styled.div`
   height: 100%;
   overflow: hidden;
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   & > video {
     flex: 1;
     min-width: 100%;
