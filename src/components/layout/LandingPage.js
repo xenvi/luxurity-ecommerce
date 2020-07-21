@@ -52,6 +52,13 @@ const VideoWrap = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  & > video {
+    flex: 1;
+    width: 100%;
+  }
 `;
 const Overlay = styled.div`
   z-index: 1;

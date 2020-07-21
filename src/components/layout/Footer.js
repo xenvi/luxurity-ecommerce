@@ -32,6 +32,7 @@ const Links = styled.ul`
 
     a {
       color: #fff;
+      text-decoration: none;
     }
   }
 `;
